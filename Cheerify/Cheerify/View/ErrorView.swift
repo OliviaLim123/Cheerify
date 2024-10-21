@@ -10,9 +10,7 @@ import SwiftUI
 
 // MARK: ERROR VIEW
 struct ErrorView: View {
-    
-    // STATE PROPERTY for colour
-    @State var color = Color.black.opacity(0.7)
+
     // BINDING PROPERTIES of ErrorView
     @Binding var alert : Bool
     @Binding var error : String
@@ -30,14 +28,14 @@ struct ErrorView: View {
                     Text(self.error == "RESET" ? "Message" : "Error")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundStyle(self.color)
+                        .foregroundStyle(.black)
                     Spacer()
                 }
                 .padding(.horizontal, 25)
                 
                 // Display the error message
                 Text(self.error == "RESET" ? "Password reset link has been sent successfully to your email" : self.error)
-                    .foregroundStyle(self.color)
+                    .foregroundStyle(.black)
                     .padding(.top)
                     .padding(.horizontal, 25)
                 
@@ -50,8 +48,8 @@ struct ErrorView: View {
                         .padding(.vertical)
                         .frame(width: UIScreen.main.bounds.width - 120)
                 }
-                .background(Color.blue)
-                .cornerRadius(10)
+                .background(.button)
+                .cornerRadius(20)
                 .padding(.top, 25)
             }
             .padding(.vertical, 25)

@@ -19,7 +19,7 @@ struct LoginView: View {
     @State var error: String = ""
     
     var body: some View {
-        VStack {
+        ZStack {
             VStack {
                 // Display the application logo
                 HStack {
@@ -42,7 +42,7 @@ struct LoginView: View {
                     TextField("Email", text: self.$email)
                         .autocapitalization(.none)
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 4).stroke( self.email != "" ? Color.blue : Color.black, lineWidth: 2))
+                        .background(RoundedRectangle(cornerRadius: 4).stroke( self.email != "" ? .customOrange : Color.black, lineWidth: 2))
                         .padding(.bottom, 20)
                     
                     // Display the password text field
@@ -67,10 +67,10 @@ struct LoginView: View {
                         }
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 4).stroke( self.password != "" ? Color.blue : Color.black, lineWidth: 2))
+                    .background(RoundedRectangle(cornerRadius: 4).stroke( self.password != "" ? .customOrange : Color.black, lineWidth: 2))
                 }
                 
-                HStack {
+                HStack { 
                     Spacer()
                     // Button to reset the password
                     Button {
@@ -100,27 +100,27 @@ struct LoginView: View {
                     TabView()
                         .navigationBarBackButtonHidden(true)
                 }
+                // Button to register the new user
+                Button {
+                        self.navigateToSignUp = true
+                } label: {
+                    HStack {
+                        Text("Not registered yet? ")
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                        Text("Create an account")
+                            .fontWeight(.bold)
+                            .foregroundStyle(.customOrange)
+                    }
+                }
+                .padding()
+                // This button will navigate to the SignUpView
+                .navigationDestination(isPresented: $navigateToSignUp) {
+                    SignUpView()
+                }
+                
             }
             .padding(.horizontal, 25)
-                
-            // Button to register the new user
-            Button {
-                    self.navigateToSignUp = true
-            } label: {
-                HStack {
-                    Text("Not registered yet? ")
-                        .fontWeight(.bold)
-                        .foregroundStyle(.black)
-                    Text("Create an account")
-                        .fontWeight(.bold)
-                        .foregroundStyle(.customOrange)
-                }
-            }
-            .padding()
-            // This button will navigate to the SignUpView
-            .navigationDestination(isPresented: $navigateToSignUp) {
-                SignUpView()
-            }
             
             // ERROR HANDLING by displaying the alert about the error
             if self.alert {
