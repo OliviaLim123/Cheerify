@@ -32,6 +32,9 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
+                    
+                        .padding(.horizontal)
+                    
                     Image("logo")
                         .resizable()
                         .scaledToFit()

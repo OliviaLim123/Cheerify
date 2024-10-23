@@ -32,10 +32,13 @@ struct SignUpView: View {
             VStack {
                 // Display application logo
                 HStack {
-                    Text("Create Your Account!")
+                    Text("Sign Up !")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
+                    
+                        .padding(.horizontal)
+                    
                     Image("logo")
                         .resizable()
                         .scaledToFit()
@@ -112,7 +115,7 @@ struct SignUpView: View {
                 Button {
                     self.register()
                 } label :{
-                    Text("Register")
+                    Text("Create Account")
                         .foregroundStyle(.white)
                         .padding(.vertical)
                         .frame(width: UIScreen.main.bounds.width - 50)
