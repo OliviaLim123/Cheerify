@@ -24,6 +24,11 @@ struct SignUpView: View {
     // BODY VIEW
     var body: some View {
         ZStack {
+            
+            //  BGM
+            AppColors.gradientBGM_topShadow
+                .ignoresSafeArea(.all)
+            
             VStack {
                 // Display application logo
                 HStack {

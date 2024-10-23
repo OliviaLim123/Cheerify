@@ -20,6 +20,11 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
+            
+            //  BGM
+            AppColors.gradientBGM_topShadow
+                .ignoresSafeArea(.all)
+            
             VStack {
                 // Display the application logo
                 HStack {
