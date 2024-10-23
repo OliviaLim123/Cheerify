@@ -16,6 +16,9 @@ class MoodViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     // A variable to store the CoreML request for classification
     var classificationRequest: VNCoreMLRequest?
+    
+    // Holds the mood prediction
+    @Published var predictedMood: String = ""
 
     // Initializer for the ViewModel
     init() {
@@ -38,26 +41,44 @@ class MoodViewModel: ObservableObject {
     }
     
     // Function to process the results of the classification request
+//    func processClassifications(for request: VNRequest, error: Error?) {
+//        DispatchQueue.main.async {
+//            // Check if the request returned results
+//            guard let results = request.results else {
+//                self.resultText = "Unable to classify image.\n\(error!.localizedDescription)"
+//                return
+//            }
+//            let classifications = results as! [VNClassificationObservation]
+//
+//            // Check if the classification process recognized anything
+//            if classifications.isEmpty {
+//                self.resultText = "Nothing recognized."
+//            } else {
+//                // Display the top 2 classifications
+//                let topClassifications = classifications.prefix(2)
+//                let descriptions = topClassifications.map { classification in
+//                    // Format the classification confidence and identifier for display
+//                    return String(format: "  (%.2f) %@", classification.confidence, classification.identifier)
+//                }
+//                self.resultText = "Classification:\n" + descriptions.joined(separator: "\n")
+//            }
+//        }
+//    }
+    
     func processClassifications(for request: VNRequest, error: Error?) {
         DispatchQueue.main.async {
-            // Check if the request returned results
             guard let results = request.results else {
                 self.resultText = "Unable to classify image.\n\(error!.localizedDescription)"
                 return
             }
             let classifications = results as! [VNClassificationObservation]
 
-            // Check if the classification process recognized anything
             if classifications.isEmpty {
                 self.resultText = "Nothing recognized."
             } else {
-                // Display the top 2 classifications
-                let topClassifications = classifications.prefix(2)
-                let descriptions = topClassifications.map { classification in
-                    // Format the classification confidence and identifier for display
-                    return String(format: "  (%.2f) %@", classification.confidence, classification.identifier)
-                }
-                self.resultText = "Classification:\n" + descriptions.joined(separator: "\n")
+                let topClassification = classifications.first!.identifier
+                self.predictedMood = topClassification // Save the top prediction
+                self.resultText = "Classification: \(topClassification)"
             }
         }
     }
