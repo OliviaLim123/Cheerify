@@ -105,7 +105,7 @@ struct LoginView: View {
                 .padding(.top, 25)
                 // This button will navigate to the TabView
                 .navigationDestination(isPresented: $navigateToHome) {
-                    TabView1()
+                    TabBar()
                         .navigationBarBackButtonHidden(true)
                 }
                 // Button to register the new user

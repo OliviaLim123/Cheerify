@@ -48,13 +48,39 @@ struct ErrorView: View {
                         .padding(.vertical)
                         .frame(width: UIScreen.main.bounds.width - 120)
                 }
-                .background(.button)
-                .cornerRadius(20)
+                //  INNER SHADOW (for Button)
+                .background(
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10.0) // Shape of the background
+                            .frame(maxWidth: .infinity)
+                            .foregroundStyle(.button) // Adjust your color here
+                            .frame(height: 65) // Set the height
+                            .padding(.horizontal, -15) // Horizontal padding to extend the shadow area
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10) // Shape for the shadow effect
+                                    .stroke(Color.gray, lineWidth: 6) // Shadow border color and width
+                                    .blur(radius: 3) // Blur for a soft shadow
+                                    .offset(x: 2, y: 6.5) // Offset to simulate depth
+                                    .mask(
+                                        RoundedRectangle(cornerRadius: 10) // Mask with the same shape
+                                            .fill(
+                                                LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.8), Color.clear]), startPoint: .top, endPoint: .bottom) // Gradient for inner shadow effect
+                                            )
+                                    )
+                                    .padding(.horizontal, -15)
+                            )
+                    }
+                )
+                .clipShape(Capsule()) // Clip it to the shape of a capsule if desired
+                .padding(.horizontal, 25)
+                .padding(.bottom, 10)
+                
+                //.cornerRadius(20)
                 .padding(.top, 25)
             }
             .padding(.vertical, 25)
             .frame(width: UIScreen.main.bounds.width - 70)
-            .background(Color.white)
+            .background(.white)
             .cornerRadius(15)
             .shadow(radius:10)
         }
