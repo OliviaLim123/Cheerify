@@ -22,7 +22,7 @@ struct CheerifyApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                LoginView()
+                WelcomeView()
             }
         }
     }
