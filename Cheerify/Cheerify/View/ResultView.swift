@@ -20,12 +20,19 @@ struct ResultView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 200)
+                    .padding()
                 
-                Text(viewModel.resultText)
+                // Note based on the predicted mood
+                Text(moodNote())
+                    .font(.title3)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                
+                Text(viewModel.resultText) // You can keep this to display classification details
                     .font(.headline)
                     .padding()
                 
-                // Additional content here (recommendations, etc.)
+                Spacer() // To push the content to the top and leave space at the bottom
             }
             .padding()
         }
@@ -46,6 +53,25 @@ struct ResultView: View {
             return "sadApple"
         default:
             return "happyOctopus" // Default image
+        }
+    }
+    
+    
+    // Function to map mood to note text
+    func moodNote() -> String {
+        switch viewModel.predictedMood {
+        case "happy":
+            return "We have a happy octopus here ♥️"  // Note for happy
+        case "fear":
+            return "What’s making your heart race right now?" // Note for fear
+        case "angry":
+            return "Seems like everything’s been pushing your limits todayyy" // Note for angry
+        case "neutral":
+            return "Today seems to have its ups and downs for you 🫂" // Note for neutral
+        case "sad":
+            return "aww, why you are a sad apple today ?" // Note for sad
+        default:
+            return "We have a happy octopus here ♥️"  // Default note
         }
     }
 }
