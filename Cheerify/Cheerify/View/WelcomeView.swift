@@ -42,17 +42,14 @@ struct WelcomeView: View {
                 // Display image for each step
                 if currentIndex == 0 {
                     // WILL CHANGE TO LOTTIE
-                    Image("logo")
-                        .resizable()
-                        .frame(width: 200, height: 200)
+                    LottieView(name: Constants.moodScanAnimation, loopMode: .loop, animationSpeed: 1.0)
+                        .frame(width: 400, height: 400)
                 } else if currentIndex == 1 {
-                    Image("logo")
-                        .resizable()
-                        .frame(width: 200, height: 200)
+                    LottieView(name: Constants.youtubeAnimation, loopMode: .loop, animationSpeed: 2.0)
+                        .frame(width: 400, height: 400)
                 } else if currentIndex == 2 {
-                    Image("logo")
-                        .resizable()
-                        .frame(width: 200, height: 200)
+                    LottieView(name: Constants.embraceMoodAnimation, loopMode: .loop, animationSpeed: 1.0)
+                        .frame(width: 400, height: 400)
                 }
                 
                 Spacer()

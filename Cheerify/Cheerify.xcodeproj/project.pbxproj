@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB61DA882CC51D3F004B5FF2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CB61DA872CC51D3F004B5FF2 /* FirebaseAuth */; };
 		CB61DA8A2CC51D3F004B5FF2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CB61DA892CC51D3F004B5FF2 /* FirebaseFirestore */; };
+		CBC8B3BF2CCA661100FA56C6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CBC8B3BE2CCA661100FA56C6 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 			files = (
 				CB61DA882CC51D3F004B5FF2 /* FirebaseAuth in Frameworks */,
 				CB61DA8A2CC51D3F004B5FF2 /* FirebaseFirestore in Frameworks */,
+				CBC8B3BF2CCA661100FA56C6 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				CB61DA872CC51D3F004B5FF2 /* FirebaseAuth */,
 				CB61DA892CC51D3F004B5FF2 /* FirebaseFirestore */,
+				CBC8B3BE2CCA661100FA56C6 /* Lottie */,
 			);
 			productName = Cheerify;
 			productReference = CBA860052CBF5D8700842017 /* Cheerify.app */;
@@ -118,6 +121,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				CB61DA862CC51D3F004B5FF2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CBC8B3BD2CCA661100FA56C6 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CBA860062CBF5D8700842017 /* Products */;
@@ -277,7 +281,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheerify/Preview Content\"";
-				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheerify/Info.plist;
@@ -309,7 +313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheerify/Preview Content\"";
-				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheerify/Info.plist;
@@ -365,6 +369,14 @@
 				minimumVersion = 11.3.0;
 			};
 		};
+		CBC8B3BD2CCA661100FA56C6 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -377,6 +389,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB61DA862CC51D3F004B5FF2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		CBC8B3BE2CCA661100FA56C6 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CBC8B3BD2CCA661100FA56C6 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
