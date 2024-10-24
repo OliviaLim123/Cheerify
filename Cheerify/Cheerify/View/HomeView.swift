@@ -121,16 +121,8 @@ struct HomeView: View {
                     Spacer()
                 }
                 .sheet(isPresented: $showImagePicker) {
-                    CameraView()
+                    CameraView(viewModel: viewModel) // Pass MoodViewModel to CameraView
                 }
-                // Navigation to ResultView when mood is classified
-                .navigationDestination(isPresented: $showResultView) {
-                    ResultView(viewModel: viewModel)
-                }
-
-//                NavigationLink(destination: ResultView(viewModel: viewModel), isActive: $showResultView) {
-//                    EmptyView() // Hidden link that activates on classification
-//                }
             }
         }
     }

@@ -7,64 +7,100 @@ import AVFoundation
 struct CameraView: View {
     @StateObject private var cameraModel = CameraModel()
     @State private var showCapturedImage = false
+    @State private var isClassifying = false // this state to track classification
+    @State private var showResultView = false // this state to navigate to ResultView
+    
+    // Add a reference to the MoodViewModel
+        var viewModel: MoodViewModel
     
     var body: some View {
-        ZStack {
-            if cameraModel.isCameraAccessGranted {
-                CameraPreview(camera: cameraModel)
-                    .edgesIgnoringSafeArea(.all)
-            } else {
-                Text("Camera access denied or not available.")
-                    .font(.headline)
-                    .foregroundColor(.red)
-            }
-            
-            VStack {
-                Spacer()
-                
-                // Camera flip button at the top
-                HStack {
-                    Spacer()
-                    
-                    // Capture photo button
-                    Button(action: {
-                        cameraModel.capturePhoto()
-                    }) {
-                        Image("cameraButton") // Your custom camera button image
-                            .resizable()
-                            .frame(width: 110, height: 110)
-                            .shadow(radius: 10)
-                    }
-                    .padding(.trailing, -90)
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        cameraModel.flipCamera()
-                    }) {
-                        Image(systemName: "arrow.triangle.2.circlepath.camera")
-                            .font(.system(size: 40))
-                            .foregroundColor(.white)
-                            .shadow(radius: 10)
-                    }
-                    .padding(.trailing, 30)
+            ZStack {
+                if cameraModel.isCameraAccessGranted {
+                    CameraPreview(camera: cameraModel)
+                        .edgesIgnoringSafeArea(.all)
+                } else {
+                    Text("Camera access denied or not available.")
+                        .font(.headline)
+                        .foregroundColor(.red)
                 }
-                .padding(.bottom, 40)
+                
+                VStack {
+                    Spacer()
+                    
+                    if let capturedImage = cameraModel.capturedImage {
+                        // Display the captured image
+                        Image(uiImage: capturedImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 300)
+                            .cornerRadius(15)
+                            .padding()
+                        
+                        // Display the "Classify Mood" button after photo is taken
+                        if isClassifying {
+                            // Show progress text while classifying
+                            Text("Analyzing your mood... Please wait!")
+                                .padding()
+                        } else {
+                            Button("Classify Mood") {
+                                // Set image for classification
+                                viewModel.selectedImage = capturedImage
+                                isClassifying = true // Set state to show progress
+
+                                // Start classification
+                                viewModel.classify()
+                                
+                                // Simulate a delay (for classification processing)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    isClassifying = false // Stop showing progress
+                                    showResultView = true // Navigate to ResultView
+                                }
+                            }
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                    } else {
+                        // Show camera buttons when no image is captured
+                        HStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                cameraModel.capturePhoto()
+                            }) {
+                                Image("cameraButton")
+                                    .resizable()
+                                    .frame(width: 110, height: 110)
+                                    .shadow(radius: 10)
+                            }
+                            .padding(.trailing, -90)
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                cameraModel.flipCamera()
+                            }) {
+                                Image(systemName: "arrow.triangle.2.circlepath.camera")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.white)
+                                    .shadow(radius: 10)
+                            }
+                            .padding(.trailing, 30)
+                        }
+                        .padding(.bottom, 40)
+                    }
+                }
+            }
+            .onAppear {
+                cameraModel.checkCameraPermission()
+                cameraModel.parentViewModel = viewModel // Assign MoodViewModel to CameraModel
+            }
+            // Navigation to ResultView when mood is classified
+            .sheet(isPresented: $showResultView) {
+                ResultView(viewModel: viewModel)
             }
         }
-        .onAppear {
-            cameraModel.checkCameraPermission()
-        }
-        .sheet(isPresented: $cameraModel.showCapturedImage) {
-            if let image = cameraModel.capturedImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-            } else {
-                Text("No Image Captured")
-            }
-        }
-    }
 }
 
 class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
@@ -74,6 +110,10 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var showCapturedImage = false
     private var output = AVCapturePhotoOutput()
     private var currentCameraPosition: AVCaptureDevice.Position = .back
+    
+    // Add a reference to MoodViewModel
+    var parentViewModel: MoodViewModel?
+        
     
     func checkCameraPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -139,6 +179,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         output.capturePhoto(with: settings, delegate: self)
     }
     
+    // Delegate method that processes the captured image
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
             print("Error capturing photo: \(error.localizedDescription)")
@@ -149,6 +190,10 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             self.capturedImage = UIImage(data: imageData)
             self.showCapturedImage = true
             print("Photo captured successfully!")
+            
+            // Pass the image to the MoodViewModel and classify it
+            parentViewModel?.selectedImage = UIImage(data: imageData) // Assign image to the ViewModel
+            parentViewModel?.classify() // Call the classify function
         }
     }
 }
