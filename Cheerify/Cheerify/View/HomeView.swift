@@ -6,13 +6,13 @@ struct HomeView: View {
     @State private var image: UIImage? = nil     // Holds the captured image
     @State private var showResultView = false    // To navigate to ResultView
     @State private var selectedDate = Date()     // Calendar date selection
-
+    
     var body: some View {
         ZStack {
             //  BGM
             AppColors.gradientBGM_bottomShadow
                 .ignoresSafeArea(.all)
-
+            
             VStack(spacing: 20) {
                 // Greeting Text
                 VStack(alignment: .leading) {
@@ -27,7 +27,7 @@ struct HomeView: View {
                         .opacity(0.5)
                 }
                 .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-
+                
                 // Mood Track Header
                 HStack {
                     Label("Mood track", systemImage: "calendar")
@@ -45,9 +45,9 @@ struct HomeView: View {
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-
+                
                 Spacer()
-
+                
                 // Calendar
                 CalendarWrapper()
                     .background(.lightBeige)
@@ -56,7 +56,7 @@ struct HomeView: View {
                     .frame(height: 300)
                 
                 Spacer()
-
+                
                 // Mood Status or Captured Image
                 if let image = image {
                     VStack {
@@ -85,7 +85,7 @@ struct HomeView: View {
                                 .font(.headline)
                         }
                         .padding(.horizontal, 10)
-
+                        
                         HStack {
                             Image(systemName: "doc.text.magnifyingglass")
                                 .font(.largeTitle)
@@ -101,7 +101,7 @@ struct HomeView: View {
                     .frame(maxWidth: UIScreen.main.bounds.width - 50)
                     .padding(.bottom, 5)
                 }
-
+                
                 // Capture Button
                 Button {
                     showImagePicker = true // Show camera to capture photo
@@ -115,14 +115,14 @@ struct HomeView: View {
                         .cornerRadius(20)
                 }
                 .padding(.horizontal)
-
+                
                 Spacer()
                 Spacer()
             }
             .sheet(isPresented: $showImagePicker) {
-                CustomImagePicker(selectedImage: $image) // Camera view to capture image
+                CameraView()
             }
-
+            
             // Navigation to ResultView when mood is classified
             NavigationLink(destination: ResultView(viewModel: viewModel), isActive: $showResultView) {
                 EmptyView() // Hidden link that activates on classification
@@ -137,7 +137,7 @@ struct CalendarWrapper: UIViewRepresentable {
         calendarView.backgroundColor = .clear
         return calendarView
     }
-
+    
     func updateUIView(_ uiView: UICalendarView, context: Context) {
         // Handle any updates if needed
     }

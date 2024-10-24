@@ -23,6 +23,7 @@ struct CheerifyApp: App {
         WindowGroup {
             NavigationStack {
                 WelcomeView()
+//                CameraView()
             }
         }
     }
