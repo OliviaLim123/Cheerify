@@ -11,7 +11,7 @@ struct LaunchView: View {
         ZStack {
             
             // Use the predefined gradient background
-            AppColors.gradientBGM_topShadow
+            AppColors.darkGradientBGM_topShadow
                 .edgesIgnoringSafeArea(.all) // To cover the entire screen
 
             // content (logo, text, etc.)

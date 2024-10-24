@@ -6,13 +6,19 @@ struct HomeView: View {
     @State private var image: UIImage? = nil     // Holds the captured image
     @State private var showResultView = false    // To navigate to ResultView
     @State private var selectedDate = Date()     // Calendar date selection
+    @StateObject private var profileVM = ProfileViewModel()
     
     var body: some View {
         NavigationStack {
             ZStack {
-                //  BGM
-                AppColors.gradientBGM_bottomShadow
-                    .ignoresSafeArea(.all)
+                // BGM, changing based on dark or light mode
+                if profileVM.isDarkMode {
+                    AppColors.darkGradientBGM_bottomShadow
+                        .ignoresSafeArea(.all)
+                } else {
+                    AppColors.gradientBGM_bottomShadow
+                        .ignoresSafeArea(.all)
+                }
                 
                 VStack(spacing: 20) {
                     // Greeting Text
@@ -24,7 +30,7 @@ struct HomeView: View {
                         Text("Welcome back!")
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.customBlack)
                             .opacity(0.5)
                     }
                     .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
@@ -39,9 +45,9 @@ struct HomeView: View {
                         } label: {
                             HStack {
                                 Text("View All")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(.customBlack)
                                 Image(systemName: "chevron.right")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(.customBlack)
                             }
                         }
                     }

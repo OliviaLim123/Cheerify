@@ -27,9 +27,15 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                //  BGM
-                AppColors.gradientBGM_bottomShadow
-                    .ignoresSafeArea(.all)
+                
+                // BGM, changing based on dark or light mode
+                if profileVM.isDarkMode {
+                    AppColors.darkGradientBGM_bottomShadow
+                        .ignoresSafeArea(.all)
+                } else {
+                    AppColors.gradientBGM_bottomShadow
+                        .ignoresSafeArea(.all)
+                }
                 
                 VStack {
                     Text("SETTING")
@@ -96,10 +102,10 @@ struct ProfileView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "square.and.pencil")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(.customBlack)
                                 
                                 Text("Reset Password")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(.customBlack)
                                     .multilineTextAlignment(.leading)
                                     .padding(.vertical)
                                 
@@ -125,7 +131,7 @@ struct ProfileView: View {
                             HStack {
                                 // Display the icons
                                 Image(systemName: "circle.righthalf.fill")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(.customBlack)
                                 
                                 // Display the enable night mode text
                                 Text("Display Mode")
@@ -134,7 +140,7 @@ struct ProfileView: View {
                             }
                         }
                         // Give the customise colour for the toggle
-                        .toggleStyle(SwitchToggleStyle(tint:.customOrange))
+                        .toggleStyle(SwitchToggleStyle(tint:.button))
                     }
                     .padding(.horizontal, 10)
                     .frame(width: UIScreen.main.bounds.width - 50)
