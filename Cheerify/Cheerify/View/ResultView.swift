@@ -2,18 +2,25 @@ import SwiftUI
 
 struct ResultView: View {
     @ObservedObject var viewModel: MoodViewModel
+    @StateObject private var profileVM = ProfileViewModel()
     
     var body: some View {
         ZStack {
             
-            //  BGM
-            AppColors.gradientBGM_topShadow
-                .ignoresSafeArea(.all)
+            // BGM, changing based on dark or light mode
+            if profileVM.isDarkMode {
+                AppColors.darkGradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            } else {
+                AppColors.gradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            }
             
             VStack {
                 Text("Your Mood Today!")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                 
                 // Mood Image based on the prediction
                 Image(moodImageName())
@@ -25,11 +32,13 @@ struct ResultView: View {
                 // Note based on the predicted mood
                 Text(moodNote())
                     .font(.title3)
+                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     .multilineTextAlignment(.center)
                     .padding()
                 
                 Text(viewModel.resultText) // You can keep this to display classification details
                     .font(.headline)
+                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     .padding()
                 
                 Spacer() // To push the content to the top and leave space at the bottom

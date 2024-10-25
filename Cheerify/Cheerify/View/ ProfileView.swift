@@ -49,13 +49,13 @@ struct ProfileView: View {
                         VStack {
                             ZStack {
                                 Circle()
-                                    .foregroundStyle(.customOrange)
+                                    .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .customOrange)
                                     .frame(width: 170, height: 170)
                                     .opacity(0.5)
                                 // Display the initial profile picture
                                 Text(profileVM.getInitial(from: userEmail))
                                     .font(.system(size: 64, weight: .bold))
-                                    .foregroundStyle(.customOrange)
+                                    .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .customOrange)
                                     .frame(width: 130, height: 130)
                                     .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                                     .clipShape(Circle())
@@ -79,7 +79,7 @@ struct ProfileView: View {
                         VStack {
                             ZStack {
                                 Circle()
-                                    .foregroundStyle(.customOrange)
+                                    .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .customOrange)
                                     .frame(width: 170, height: 170)
                                     .opacity(0.5)
                                 Image(systemName: "person.circle")
