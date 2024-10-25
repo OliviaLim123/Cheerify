@@ -14,6 +14,7 @@ struct ErrorView: View {
     // BINDING PROPERTIES of ErrorView
     @Binding var alert : Bool
     @Binding var error : String
+    @StateObject private var profileVM = ProfileViewModel()
     
     // BODY VIEW
     var body: some View {
@@ -28,14 +29,14 @@ struct ErrorView: View {
                     Text(self.error == "RESET" ? "Message" : "Error")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     Spacer()
                 }
                 .padding(.horizontal, 25)
                 
                 // Display the error message
                 Text(self.error == "RESET" ? "Password reset link has been sent successfully to your email" : self.error)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     .padding(.top)
                     .padding(.horizontal, 25)
                 
@@ -80,7 +81,7 @@ struct ErrorView: View {
             }
             .padding(.vertical, 25)
             .frame(width: UIScreen.main.bounds.width - 70)
-            .background(.white)
+            .background(profileVM.isDarkMode ? .black : .white)
             .cornerRadius(15)
             .shadow(radius:10)
         }
