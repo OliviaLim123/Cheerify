@@ -17,13 +17,20 @@ struct LoginView: View {
     @State var navigateToHome: Bool = false
     @State var alert: Bool = false
     @State var error: String = ""
+    @StateObject private var profileVM = ProfileViewModel()
     
     var body: some View {
         ZStack {
             
-            //  BGM
-            AppColors.gradientBGM_topShadow
-                .ignoresSafeArea(.all)
+            // BGM, changing based on dark or light mode
+            if profileVM.isDarkMode {
+                AppColors.darkGradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            } else {
+                AppColors.gradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            }
+            
             
             VStack {
                 // Display the application logo
@@ -32,6 +39,7 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     
                         .padding(.horizontal)
                     
@@ -47,8 +55,10 @@ struct LoginView: View {
                     Text("Email Address")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     TextField("Email", text: self.$email)
                         .autocapitalization(.none)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .padding()
                         .background(RoundedRectangle(cornerRadius: 4).stroke( self.email != "" ? .customOrange : Color.black, lineWidth: 2))
                         .padding(.bottom, 20)
@@ -57,21 +67,24 @@ struct LoginView: View {
                     Text("Password")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     HStack(spacing: 15) {
                         if self.visible {
                             // If it is visible, display the normal text field
                             TextField("Password", text: self.$password)
                                 .autocapitalization(.none)
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         } else {
                             // If it is invisible, display the secure text field
                             SecureField("Password", text: self.$password)
                                 .autocapitalization(.none)
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         }
                         Button {
                             self.visible.toggle()
                         } label: {
                             Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
-                                .foregroundStyle(.black)
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         }
                     }
                     .padding()
@@ -115,7 +128,7 @@ struct LoginView: View {
                     HStack {
                         Text("Not registered yet? ")
                             .fontWeight(.bold)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         Text("Create an account")
                             .fontWeight(.bold)
                             .foregroundStyle(.customOrange)

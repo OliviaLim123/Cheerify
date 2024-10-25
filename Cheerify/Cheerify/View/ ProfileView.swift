@@ -40,9 +40,11 @@ struct ProfileView: View {
                 VStack {
                     Text("SETTING")
                         .font(.largeTitle)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
                         .padding(.bottom, 20)
+                    
                     if let userEmail = email, let creationDate = accountCreationDate {
                         VStack {
                             ZStack {
@@ -55,18 +57,20 @@ struct ProfileView: View {
                                     .font(.system(size: 64, weight: .bold))
                                     .foregroundStyle(.customOrange)
                                     .frame(width: 130, height: 130)
-                                    .background(.lightBeige)
+                                    .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                                     .clipShape(Circle())
                             }
                             
                             // Display the user email
                             Text("\(userEmail)")
                                 .font(.title2)
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                             
                             // Display the account creation date
                             Text("Date joined on \(creationDate)")
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .font(.headline)
                                 .padding(.bottom, 20)
                         }
@@ -86,11 +90,14 @@ struct ProfileView: View {
                             
                             Text("ExampleUser.com")
                                 .font(.title2)
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                             
+                            
                             Text("Date joined on 23/10/2024")
                                 .font(.headline)
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .padding(.bottom, 20)
                         }
                     }
@@ -102,10 +109,10 @@ struct ProfileView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "square.and.pencil")
-                                    .foregroundStyle(.customBlack)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 
                                 Text("Reset Password")
-                                    .foregroundStyle(.customBlack)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                     .multilineTextAlignment(.leading)
                                     .padding(.vertical)
                                 
@@ -115,7 +122,7 @@ struct ProfileView: View {
                             .padding(.horizontal, 10)
                             .frame(width: UIScreen.main.bounds.width - 50)
                         }
-                        .background(.lightBeige)
+                        .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                         .cornerRadius(10)
                         .padding(.top, 15)
                         // Displaying the alert to display the password reset link has been sent message
@@ -131,11 +138,12 @@ struct ProfileView: View {
                             HStack {
                                 // Display the icons
                                 Image(systemName: "circle.righthalf.fill")
-                                    .foregroundStyle(.customBlack)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 
                                 // Display the enable night mode text
                                 Text("Display Mode")
                                     .multilineTextAlignment(.leading)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                     .padding(.vertical)
                             }
                         }
@@ -144,7 +152,7 @@ struct ProfileView: View {
                     }
                     .padding(.horizontal, 10)
                     .frame(width: UIScreen.main.bounds.width - 50)
-                    .background(.lightBeige)
+                    .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                     .cornerRadius(10)
                     // Calling the update color scheme function
                     .onChange(of: profileVM.isDarkMode) { newValue, _ in

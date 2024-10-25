@@ -15,13 +15,19 @@ struct WelcomeView: View {
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     // PROPERTY for totalSteps
     let totalSteps = 3
+    @StateObject private var profileVM = ProfileViewModel()
 
     // BODY VIEW
     var body: some View {
         ZStack {
-            //  BGM
-            AppColors.gradientBGM_bottomShadow
-                .ignoresSafeArea(.all)
+            // BGM, changing based on dark or light mode
+            if profileVM.isDarkMode {
+                AppColors.darkGradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            } else {
+                AppColors.gradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            }
             
             VStack {
                 
@@ -58,12 +64,14 @@ struct WelcomeView: View {
                 VStack(alignment: .leading) {
                     Text(currentIndex == 0 ? "Unlock Your Mood in Snap!" : currentIndex == 1 ? "YouTube Video One Click Away!" : "Embrace Your Mood by Widget!")
                         .font(.largeTitle)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .fontWeight(.bold)
                         .padding(.bottom, 10)
                     
                     Text(currentIndex == 0 ? "Your face, your mood, your videos. Cheerify knows what you need, right when you need it!" :
                         currentIndex == 1 ? "Cheerify match your expression with the best YouTube solutions!" :
                         "We keep the vibe alive with the mood widget!")
+                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                 }
                 .padding(.horizontal)
                 

@@ -27,10 +27,11 @@ struct HomeView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .padding(.top, 10)
+                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         Text("Welcome back!")
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundStyle(.customBlack)
+                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             .opacity(0.5)
                     }
                     .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
@@ -39,15 +40,16 @@ struct HomeView: View {
                     HStack {
                         Label("Mood track", systemImage: "calendar")
                             .font(.title2)
+                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         Spacer()
                         Button {
                             // Action to navigate to history view (optional)
                         } label: {
                             HStack {
                                 Text("View All")
-                                    .foregroundStyle(.customBlack)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 Image(systemName: "chevron.right")
-                                    .foregroundStyle(.customBlack)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             }
                         }
                     }
@@ -57,7 +59,7 @@ struct HomeView: View {
                     
                     // Calendar
                     CalendarWrapper()
-                        .background(.lightBeige)
+                        .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                         .cornerRadius(10)
                         .frame(maxWidth: UIScreen.main.bounds.width - 50)
                         .frame(height: 300)
@@ -88,8 +90,11 @@ struct HomeView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 Image(systemName: "deskclock.fill")
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                                
                                 Text(selectedDate, style: .date)
                                     .font(.headline)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             }
                             .padding(.horizontal, 10)
                             
@@ -97,12 +102,14 @@ struct HomeView: View {
                                 Image(systemName: "doc.text.magnifyingglass")
                                     .font(.largeTitle)
                                     .padding(.horizontal)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 Text("Oops! We haven’t captured your mood today!")
                                     .multilineTextAlignment(.leading)
+                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             }
                             .padding()
                             .frame(width: UIScreen.main.bounds.width - 20)
-                            .background(.lightBeige)
+                            .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                             .cornerRadius(12)
                         }
                         .frame(maxWidth: UIScreen.main.bounds.width - 50)

@@ -75,7 +75,7 @@ struct LaunchScreenView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
             Text("Cheerify")
                 .fontWeight(.bold)
-                .foregroundStyle(.customBlack)
+                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                 .font(.largeTitle)
             
         }

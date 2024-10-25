@@ -20,14 +20,20 @@ struct SignUpView: View {
     @State var alert: Bool = false
     @State var error: String = ""
     @State var navigateToLogin: Bool = false
+    @StateObject private var profileVM = ProfileViewModel()
     
     // BODY VIEW
     var body: some View {
         ZStack {
             
-            //  BGM
-            AppColors.gradientBGM_topShadow
-                .ignoresSafeArea(.all)
+            // BGM, changing based on dark or light mode
+            if profileVM.isDarkMode {
+                AppColors.darkGradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            } else {
+                AppColors.gradientBGM_bottomShadow
+                    .ignoresSafeArea(.all)
+            }
             
             VStack {
                 // Display application logo
