@@ -8,6 +8,7 @@ struct HomeView: View {
     @State private var selectedDate = Date()     // Calendar date selection
     @StateObject private var profileVM = ProfileViewModel()
     @State private var calendarView: UICalendarView?
+    @State private var moodRecordForSelectedDate: MoodRecord?
     
     var body: some View {
         NavigationStack {
@@ -43,7 +44,7 @@ struct HomeView: View {
                             .font(.title2)
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         Spacer()
-                        Button {
+                        NavigationLink {
                             // Action to navigate to history view (optional)
                         } label: {
                             HStack {
@@ -60,16 +61,13 @@ struct HomeView: View {
                     Spacer()
                     
                     // Calendar
-                    CalendarWrapper(selectedDate: $selectedDate,isDarkMode: $profileVM.isDarkMode  // Pass dark mode state
-                    ) { calendar in
-                        self.calendarView = calendar  // Capture calendar reference
-                    }
-                    .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 20)
-                    .frame(height: 200)
-                    .padding(.bottom, 20)
+                    CalendarWrapper(selectedDate: $selectedDate)
+                        .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
+                        .cornerRadius(10)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 20)
+                        .frame(height: 200)
+                        .padding(.bottom, 20)
                 
                     Spacer()
                     
@@ -106,23 +104,55 @@ struct HomeView: View {
                             .padding(.horizontal, 10)
                             .padding(.top, 10)
                             
-                            HStack {
-                                Image(systemName: "doc.text.magnifyingglass")
-                                    .font(.largeTitle)
-                                    .padding(.horizontal)
-                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                                Text("Oops! We haven’t captured your mood today!")
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                            if let record = moodRecordForSelectedDate {
+                                HStack {
+                                    Image(record.imageName ?? "")
+                                        .resizable()
+                                        .frame(width: 80, height: 80)
+                                    
+                                    VStack {
+                                        Text(record.imageName ?? "")
+                                            .frame(maxWidth: .infinity)
+                                            .bold()
+                                            .padding(2)
+                                            .background(.black)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(20)
+                                        Text(record.note ?? "")
+                                            .font(.subheadline)
+                                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                                            .lineLimit(nil) // Allows the text to wrap across multiple lines
+                                    }
+                                        
+                                }
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
+                                .cornerRadius(12)
+                            } else {
+                                HStack {
+                                    Image(systemName: "doc.text.magnifyingglass")
+                                        .font(.largeTitle)
+                                        .padding(.horizontal)
+                                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                                    Text("Oops! We haven’t captured your mood today!")
+                                        .multilineTextAlignment(.leading)
+                                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                                }
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
+                                .cornerRadius(12)
                             }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
-                            .cornerRadius(12)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 20)
-                        .padding(.bottom, 5)
+                        .onAppear {
+                            fetchMoodForSelectedDate()
+                        }
+                        .onChange(of: selectedDate) {
+                            fetchMoodForSelectedDate()  // Fetch the mood record for the newly selected date
+                        }
                     }
                     
                     // Capture Button
@@ -148,12 +178,16 @@ struct HomeView: View {
             }
         }
     }
+    
+    private func fetchMoodForSelectedDate() {
+        moodRecordForSelectedDate = PersistenceController.shared.fetchMood(for: selectedDate)
+    }
+    
 }
 
 struct CalendarWrapper: UIViewRepresentable {
     @Binding var selectedDate: Date
-    @Binding var isDarkMode: Bool
-    var onCalendarCreated: ((UICalendarView) -> Void)?
+    @StateObject var profileVM = ProfileViewModel()
     
     func makeUIView(context: Context) -> UICalendarView {
         let calendarView = UICalendarView()
@@ -162,7 +196,6 @@ struct CalendarWrapper: UIViewRepresentable {
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         // Change the circle colour for the selected date
         calendarView.tintColor = .customOrange
-        onCalendarCreated?(calendarView)
         
         // Adjusting the size of the calendar 
         NSLayoutConstraint.activate([
@@ -174,16 +207,16 @@ struct CalendarWrapper: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UICalendarView, context: Context) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        if profileVM.isDarkMode {
             updateCalendarTextColor(calendarView: uiView)
-        }
+        } 
     }
-    
+
     func updateCalendarTextColor(calendarView: UICalendarView) {
         for subview in calendarView.subviews {
             for view in subview.subviews {
                 if let label = view as? UILabel {
-                    label.textColor = isDarkMode ? .white : .black
+                    label.textColor = profileVM.isDarkMode ? .white : .black
                 }
             }
         }
@@ -206,7 +239,6 @@ struct CalendarWrapper: UIViewRepresentable {
                 }
             }
         }
-        
     }
 }
 

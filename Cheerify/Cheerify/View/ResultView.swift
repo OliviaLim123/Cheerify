@@ -3,6 +3,7 @@ import SwiftUI
 struct ResultView: View {
     @ObservedObject var viewModel: MoodViewModel
     @StateObject private var profileVM = ProfileViewModel()
+    @State private var isSaved = false
     
     var body: some View {
         ZStack {
@@ -42,9 +43,29 @@ struct ResultView: View {
                     .padding()
                 
                 Spacer() // To push the content to the top and leave space at the bottom
+                
+                // I need this button in order to show it in the HomeView - Olivia
+                Button(isSaved ? "Saved" : "Save Mood") {
+                    saveMoodResult()
+                    isSaved = true // Change the label after saving
+                }
+                .font(.headline)
+                .padding()
+                .background(isSaved ? Color.gray : Color.customOrange)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
             .padding()
         }
+    }
+    
+    private func saveMoodResult() {
+        let mood = viewModel.predictedMood
+        let note = moodNote()
+        let imageName = moodImageName()
+        let date = Date()
+        
+        PersistenceController.shared.saveMood(mood: mood, note: note, imageName: imageName, date: date)
     }
     
     // Function to map mood to image asset name
