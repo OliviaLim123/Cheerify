@@ -40,7 +40,10 @@ struct CameraView: View {
                         if isClassifying {
                             // Show progress text while classifying
                             Text("Analyzing your mood... Please wait!")
+                                .font(.headline)
+                                .foregroundStyle(.frangipani)
                                 .padding()
+
                         } else {
                             Button("Classify Mood") {
                                 // Set image for classification
@@ -56,9 +59,10 @@ struct CameraView: View {
                                     showResultView = true // Navigate to ResultView
                                 }
                             }
+                            .font(.headline)
                             .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
+                            .background(AppColors.gradientBGM_bottomShadow)
+                            .foregroundColor(.black)
                             .cornerRadius(10)
                         }
                     } else {
