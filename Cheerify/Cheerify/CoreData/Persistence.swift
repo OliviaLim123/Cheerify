@@ -89,5 +89,17 @@ class PersistenceController {
             return nil
         }
     }
+    
+    func deleteMood(_ mood: MoodRecord) {
+        let context = container.viewContext
+        context.delete(mood) // Mark the mood for deletion
+
+        do {
+            try context.save() // Save changes to apply the deletion
+            print("Mood deleted successfully.")
+        } catch {
+            print("Failed to delete mood: \(error)")
+        }
+    }
 
 }
