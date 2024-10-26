@@ -1,18 +1,28 @@
 import SwiftUI
 
+// MARK: - Home View Struct
 struct HomeView: View {
-    @StateObject var viewModel = MoodViewModel()  // View model for classification
-    @State private var showImagePicker = false   // State to show camera
-    @State private var image: UIImage? = nil     // Holds the captured image
-    @State private var showResultView = false    // To navigate to ResultView
-    @State private var selectedDate = Date()     // Calendar date selection
+    
+    // View model for classification
+    @StateObject var viewModel = MoodViewModel()
+    // View model for enable dark mode
     @StateObject private var profileVM = ProfileViewModel()
+    // State to show camera
+    @State private var showImagePicker = false
+    // Holds the captured image
+    @State private var image: UIImage? = nil
+    // To navigate to ResultView
+    @State private var showResultView = false
+    // Calendar date selection
+    @State private var selectedDate = Date()
     @State private var calendarView: UICalendarView?
     @State private var moodRecordForSelectedDate: MoodRecord?
     
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack {
+                // MARK: - Dark mode set up
                 // BGM, changing based on dark or light mode
                 if profileVM.isDarkMode {
                     AppColors.darkGradientBGM_bottomShadow
@@ -23,7 +33,7 @@ struct HomeView: View {
                 }
                 
                 VStack(spacing: 20) {
-                    // Greeting Text
+                    // MARK: - Greeting Text
                     VStack(alignment: .leading) {
                         Text("Hi There!")
                             .font(.largeTitle)
@@ -38,7 +48,7 @@ struct HomeView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                     
-                    // Mood Track Header
+                    // MARK: - Mood Track Header
                     HStack {
                         Label("Mood track", systemImage: "calendar")
                             .font(.title2)
@@ -60,7 +70,7 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    // Calendar
+                    // MARK: - Display Calendar
                     CalendarWrapper(selectedDate: $selectedDate)
                         .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                         .cornerRadius(10)
@@ -71,7 +81,7 @@ struct HomeView: View {
                 
                     Spacer()
                     
-                    // Mood Status or Captured Image
+                    // MARK: - Mood Status or Captured Image
                     if let image = image {
                         VStack {
                             Image(uiImage: image)
@@ -84,7 +94,8 @@ struct HomeView: View {
                             Button("Classify Mood") {
                                 viewModel.selectedImage = image
                                 viewModel.classify()
-                                showResultView = true // Triggers the navigation to ResultView
+                                // Triggers the navigation to ResultView
+                                showResultView = true
                             }
                             .padding()
                             .background(Color.blue)
@@ -121,7 +132,8 @@ struct HomeView: View {
                                         Text(record.note ?? "")
                                             .font(.subheadline)
                                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                                            .lineLimit(nil) // Allows the text to wrap across multiple lines
+                                            // Allows the text to wrap across multiple lines
+                                            .lineLimit(nil)
                                     }
                                         
                                 }
@@ -130,6 +142,7 @@ struct HomeView: View {
                                 .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                                 .cornerRadius(12)
                             } else {
+                                // MARK: - Placeholder
                                 HStack {
                                     Image(systemName: "doc.text.magnifyingglass")
                                         .font(.largeTitle)
@@ -151,13 +164,15 @@ struct HomeView: View {
                             fetchMoodForSelectedDate()
                         }
                         .onChange(of: selectedDate) {
-                            fetchMoodForSelectedDate()  // Fetch the mood record for the newly selected date
+                            // Fetch the mood record for the newly selected date
+                            fetchMoodForSelectedDate()
                         }
                     }
                     
-                    // Capture Button
+                    // MARK: - Capture Button
                     Button {
-                        showImagePicker = true // Show camera to capture photo
+                        // Show camera to capture photo
+                        showImagePicker = true
                     } label: {
                         Text("Capture Now!")
                             .bold()
@@ -173,23 +188,32 @@ struct HomeView: View {
                     Spacer()
                 }
                 .sheet(isPresented: $showImagePicker) {
-                    CameraView(viewModel: viewModel) // Pass MoodViewModel to CameraView
+                    // Pass MoodViewModel to CameraView
+                    CameraView(viewModel: viewModel)
                 }
             }
         }
     }
     
+    // MARK: - Fetch Mood for Selected Date Function
+    // Fetch the mood based on the date from Core Data
     private func fetchMoodForSelectedDate() {
         moodRecordForSelectedDate = PersistenceController.shared.fetchMood(for: selectedDate)
     }
     
 }
 
+// MARK: - Calendar Wrapper
+// Handle the Calender View
 struct CalendarWrapper: UIViewRepresentable {
+    
     @Binding var selectedDate: Date
     @StateObject var profileVM = ProfileViewModel()
     
+    // MARK: - Make UI View
+    // Handle how the UI view looks like
     func makeUIView(context: Context) -> UICalendarView {
+        // Create the UI Calendar View
         let calendarView = UICalendarView()
         calendarView.delegate = context.coordinator
         calendarView.selectionBehavior = UICalendarSelectionSingleDate(delegate: context.coordinator)
@@ -206,12 +230,30 @@ struct CalendarWrapper: UIViewRepresentable {
         return calendarView
     }
     
+    // MARK: - Update UI View
+    // Updating the view directly when the dark mode is enable
     func updateUIView(_ uiView: UICalendarView, context: Context) {
         if profileVM.isDarkMode {
             updateCalendarTextColor(calendarView: uiView)
-        } 
+        } else {
+            normalCalendarTextColor(calendarView: uiView)
+        }
     }
 
+    // MARK: - Normal Calendar Color
+    // Manage how the calendar looks like when light mode
+    func normalCalendarTextColor(calendarView: UICalendarView) {
+        for subview in calendarView.subviews {
+            for view in subview.subviews {
+                if let label = view as? UILabel {
+                    label.textColor =  .black
+                }
+            }
+        }
+    }
+    
+    // MARK: - Update Calendar Color
+    // Manage how the calendar looks like when dark mode enabled
     func updateCalendarTextColor(calendarView: UICalendarView) {
         for subview in calendarView.subviews {
             for view in subview.subviews {
@@ -222,16 +264,25 @@ struct CalendarWrapper: UIViewRepresentable {
         }
     }
     
+    // MARK: - Make Coordinator Function
+    // Create the Coordinator
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
+    
+    // MARK: - Coordinator Class
+    // Acts as the delegate and handles interactions with UICalendarView and date selection.
     class Coordinator: NSObject, UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
+        
         var parent: CalendarWrapper
         
+        // Initialiser
         init(_ parent: CalendarWrapper) {
             self.parent = parent
         }
         
+        // MARK: - Date Selection Function
+        // Called when the user selects the specified date
         func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
             if let date = dateComponents?.date {
                 DispatchQueue.main.async {
@@ -242,6 +293,7 @@ struct CalendarWrapper: UIViewRepresentable {
     }
 }
 
+// MARK: - Previews
 #Preview {
     HomeView()
 }

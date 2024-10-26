@@ -7,10 +7,15 @@
 
 import CoreData
 
+// MARK: - PersistenceController
+// Handles the CoreData operations
 class PersistenceController {
+    
     static let shared = PersistenceController()
     let container: NSPersistentContainer
     
+    // MARK: - Initialiser
+    // Initialise the Core Data and load persistence storage "MoodCoreData"
     init() {
         container = NSPersistentContainer(name: "MoodCoreData")
         container.loadPersistentStores { _, error in
@@ -20,6 +25,8 @@ class PersistenceController {
         }
     }
     
+    // MARK: - Save Mood Function
+    // Saves a mood record with mood description, note, image name, and date to CoreData
     func saveMood(mood: String, note: String, imageName: String, date: Date) {
         let context = container.viewContext
         let moodRecord = MoodRecord(context: context)
@@ -32,22 +39,29 @@ class PersistenceController {
         do {
             try context.save()
         } catch {
+            // Error handling
             print("Failed to save mood: \(error)")
         }
     }
-    
+
+    // MARK: - Fetch All Moods Function
+    // Fetches all mood records from Core Data, sorted by date in descending order (newest first)
     func fetchMoods() -> [MoodRecord] {
         let request: NSFetchRequest<MoodRecord> = MoodRecord.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \MoodRecord.date, ascending: false)]
+
         let context = container.viewContext
-        
         do {
             return try context.fetch(request)
         } catch {
+            // Error handling
             print("Failed to fetch moods: \(error)")
             return []
         }
     }
     
+    // MARK: - Fetch Latest Mood Function
+    // Fetches the most recent mood record from Core Data
     func fetchLatestMood() -> MoodRecord? {
         let request: NSFetchRequest<MoodRecord> = MoodRecord.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \MoodRecord.date, ascending: false)]
@@ -57,20 +71,25 @@ class PersistenceController {
         do {
             return try context.fetch(request).first
         } catch {
+            // Error handling
             print("Failed to fetch the latest mood: \(error)")
             return nil
         }
     }
     
+    // MARK: Fetch Mood for Specific Date
+    // Fetches a mood record for specific date
     func fetchMood(for date: Date) -> MoodRecord? {
         let request: NSFetchRequest<MoodRecord> = MoodRecord.fetchRequest()
         
         // Set up date bounds for the query (start and end of the selected day)
         let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: date) // midnight of the selected day
+        // Midnight of the selected day
+        let startOfDay = calendar.startOfDay(for: date)
         var components = DateComponents()
         components.day = 1
-        let endOfDay = calendar.date(byAdding: components, to: startOfDay) // end of the day
+        // End of the day
+        let endOfDay = calendar.date(byAdding: components, to: startOfDay)
         
         // Predicate to fetch records for the selected date
         request.predicate = NSPredicate(format: "date >= %@ AND date < %@", startOfDay as NSDate, endOfDay! as NSDate)
@@ -83,21 +102,28 @@ class PersistenceController {
         
         let context = container.viewContext
         do {
-            return try context.fetch(request).first // Return the first (and only) mood record for the day
+            // Return the first (and only) mood record for the day
+            return try context.fetch(request).first
         } catch {
+            // Error handling
             print("Failed to fetch mood for date \(date): \(error)")
             return nil
         }
     }
     
+    // MARK: - Delete Mood Function
+    // Deletes a mood record from Core Data
     func deleteMood(_ mood: MoodRecord) {
         let context = container.viewContext
-        context.delete(mood) // Mark the mood for deletion
+        // Mark the mood for deletion
+        context.delete(mood)
 
         do {
-            try context.save() // Save changes to apply the deletion
+            // Save changes to apply the deletion
+            try context.save()
             print("Mood deleted successfully.")
         } catch {
+            // Error handling
             print("Failed to delete mood: \(error)")
         }
     }

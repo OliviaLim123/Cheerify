@@ -7,20 +7,22 @@
 
 import SwiftUI
 
-// MARK: LAUNCH SCREEN VIEW
+// MARK: - Launch Screen View
+// Handles the launch screen view of the application
 struct LaunchScreenView: View {
     
-    // STATE PRIVATE PROPERTIES of LaunchScreenView
+    // State Private Properties of LaunchScreenView
     @State private var isActive = false
     @State private var size = 0.8
     @State private var opacity = 0.5
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     @StateObject private var profileVM = ProfileViewModel()
     
-    // BODY VIEW
+    // MARK: - Body
     var body: some View {
         ZStack {
     
+            // MARK: - Dark Mode set up
             // BGM, changing based on dark or light mode
             if profileVM.isDarkMode {
                 AppColors.darkGradientBGM_bottomShadow
@@ -65,7 +67,8 @@ struct LaunchScreenView: View {
         }
     }
     
-    // APP LOGO VIEW
+    // MARK: - Display App Logo
+    // Handle the appearance of the application logo
     var appLogo: some View {
         // Display the logo and application name
         VStack {
@@ -82,7 +85,7 @@ struct LaunchScreenView: View {
     }
 }
 
-// MARK: LAUNCH SCREEN PREVIEW
+// MARK: - Previews
 #Preview {
     LaunchScreenView()
 }

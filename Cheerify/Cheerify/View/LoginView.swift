@@ -8,8 +8,11 @@
 import SwiftUI
 import FirebaseAuth
 
+// MARK: - Login View Struct
+// Handle the user's authentication to the application
 struct LoginView: View {
     
+    // State properties
     @State var email: String = ""
     @State var password: String = ""
     @State var visible: Bool = false
@@ -19,9 +22,11 @@ struct LoginView: View {
     @State var error: String = ""
     @StateObject private var profileVM = ProfileViewModel()
     
+    // MARK: - Body
     var body: some View {
         ZStack {
             
+            // MARK: - Dark mode set up
             // BGM, changing based on dark or light mode
             if profileVM.isDarkMode {
                 AppColors.darkGradientBGM_bottomShadow
@@ -31,9 +36,8 @@ struct LoginView: View {
                     .ignoresSafeArea(.all)
             }
             
-            
             VStack {
-                // Display the application logo
+                // MARK: -Display the application logo
                 HStack {
                     Text("Welcome Cheerier!")
                         .font(.largeTitle)
@@ -51,7 +55,7 @@ struct LoginView: View {
                 .padding(.bottom, 60)
                 
                 VStack(alignment: .leading) {
-                    // Display the email text field
+                    // MARK: - Display the email text field
                     Text("Email Address")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
@@ -63,7 +67,7 @@ struct LoginView: View {
                         .background(RoundedRectangle(cornerRadius: 4).stroke( self.email != "" ? .customOrange : Color.black, lineWidth: 2))
                         .padding(.bottom, 20)
                     
-                    // Display the password text field
+                    // MARK: - Display the password text field
                     Text("Password")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
@@ -80,6 +84,7 @@ struct LoginView: View {
                                 .autocapitalization(.none)
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         }
+                        // MARK: - Eye button to see the password
                         Button {
                             self.visible.toggle()
                         } label: {
@@ -91,9 +96,9 @@ struct LoginView: View {
                     .background(RoundedRectangle(cornerRadius: 4).stroke( self.password != "" ? .customOrange : Color.black, lineWidth: 2))
                 }
                 
-                HStack { 
+                HStack {
                     Spacer()
-                    // Button to reset the password
+                    // MARK: - Button to reset the password
                     Button {
                         self.reset()
                     } label: {
@@ -104,7 +109,7 @@ struct LoginView: View {
                     .padding(.top, 20)
                 }
                 
-                // Button to log in and it will verify the user credentials
+                // MARK: - Button to log in and it will verify the user credentials
                 Button {
                     self.verify()
                 } label :{
@@ -121,7 +126,8 @@ struct LoginView: View {
                     TabBar()
                         .navigationBarBackButtonHidden(true)
                 }
-                // Button to register the new user
+                
+                // MARK: - Button to register the new user
                 Button {
                         self.navigateToSignUp = true
                 } label: {
@@ -143,44 +149,46 @@ struct LoginView: View {
             }
             .padding(.horizontal, 25)
             
-            // ERROR HANDLING by displaying the alert about the error
+            // Error Handling by displaying the alert about the error
             if self.alert {
                 ErrorView(alert: self.$alert, error: self.$error)
             }
         }
     }
     
-    // FUNCTION to very the user email and password
+    // MARK: - Verify Function
+    // Function to very the user email and password
     func verify() {
         if self.email != "" && self.password != "" {
             // Sign in function from the Firebase Auth
             Auth.auth().signIn(withEmail: self.email, password: self.password) { (res, err) in
-                // ERROR HANDLING
+                // Error Handling
                 if err != nil {
                     self.error = err!.localizedDescription
                     self.alert.toggle()
                     return
                 }
                 self.navigateToHome = true
-                // DEBUG
+                // Debug
                 print("success")
                 // Save the user status after log in
                 UserDefaults.standard.set(true, forKey: "status")
                 NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
             }
         } else {
-            // ERROR HANDLING
+            // Error Handling
             self.error = "Please fill all the contents properly"
             self.alert.toggle()
         }
     }
     
-    // FUNCTION to reset the password
+    // MARK: Reset Password Function
+    // Function to reset user password
     func reset() {
         if self.email != "" {
             // Reset password function from Firebase Auth
             Auth.auth().sendPasswordReset(withEmail: self.email) { (err) in
-                // ERROR HANDLING
+                // Error Handling
                 if err != nil {
                     self.error = err!.localizedDescription
                     self.alert.toggle()
@@ -197,6 +205,7 @@ struct LoginView: View {
     }
 }
 
+// MARK: - Previews
 #Preview {
     LoginView()
 }

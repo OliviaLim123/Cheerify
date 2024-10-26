@@ -8,10 +8,10 @@
 import SwiftUI
 import FirebaseAuth
 
-// MARK: SIGN UP VIEW
+// MARK: - Sign Up View
 struct SignUpView: View {
     
-    // STATE PROPERTIES of SignUpView
+    // State properties of SignUpView
     @State var email: String = ""
     @State var password: String = ""
     @State var repassword: String = ""
@@ -22,10 +22,11 @@ struct SignUpView: View {
     @State var navigateToLogin: Bool = false
     @StateObject private var profileVM = ProfileViewModel()
     
-    // BODY VIEW
+    // MARK: - Body
     var body: some View {
         ZStack {
             
+            // MARK: - Dark mode set up
             // BGM, changing based on dark or light mode
             if profileVM.isDarkMode {
                 AppColors.darkGradientBGM_bottomShadow
@@ -36,7 +37,7 @@ struct SignUpView: View {
             }
             
             VStack {
-                // Display application logo
+                // MARK: - Display application logo
                 HStack {
                     Text("Sign Up !")
                         .font(.largeTitle)
@@ -53,7 +54,7 @@ struct SignUpView: View {
                 .padding(.bottom, 60)
                 
                 VStack(alignment: .leading) {
-                    // Display the email text field
+                    // MARK: - Display the email text field
                     Text("Email Address")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
@@ -63,7 +64,7 @@ struct SignUpView: View {
                         .background(RoundedRectangle(cornerRadius: 4).stroke( self.email != "" ? .customOrange : Color.black, lineWidth: 2))
                         .padding(.bottom, 20)
                     
-                    // Display the password text field
+                    // MARK: - Display the password text field
                     Text("Password")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
@@ -77,6 +78,8 @@ struct SignUpView: View {
                             SecureField("Password", text: self.$password)
                                 .autocapitalization(.none)
                         }
+                        
+                        // MARK: - Eye icon to see the password
                         Button {
                             self.visible.toggle()
                         } label: {
@@ -87,7 +90,7 @@ struct SignUpView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 4).stroke( self.password != "" ? .customOrange : Color.black, lineWidth: 2))
                     
-                    // Display the confirm password text field
+                    // MARK: - Display the confirm password text field
                     Text("Confirm Password")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
@@ -103,7 +106,7 @@ struct SignUpView: View {
                                 .autocapitalization(.none)
                         }
                         
-                        // Button to see or hide the confirm password
+                        // MARK: - Button to see or hide the confirm password
                         Button {
                             self.revisible.toggle()
                         } label: {
@@ -117,7 +120,7 @@ struct SignUpView: View {
                 
                 
                 
-                // Button to register the new user
+                // MARK: - Button to register the new user
                 Button {
                     self.register()
                 } label :{
@@ -137,46 +140,47 @@ struct SignUpView: View {
             }
             .padding(.horizontal, 25)
             
-            // ERROR HANDLING to display the error message
+            // Error Handling to display the error message
             if self.alert {
                 ErrorView(alert: self.$alert, error: self.$error)
             }
         }
     }
     
-    // FUNCTION to register the new user email and password
+    // MARK: - Register User Function
+    // Function to register the new user email and password to the Firebase
     func register() {
         if self.email != "" {
             if self.password == self.repassword {
                 // Create user function from Firebase Auth
                 Auth.auth().createUser(withEmail: self.email, password: self.password) { (res, err) in
-                    // ERROR HANDLING
+                    // Error handling
                     if err != nil {
                         self.error = err!.localizedDescription
                         self.alert.toggle()
                         return
                     }
                     self.navigateToLogin = true
-                    // DEBUG
+                    // Debug
                     print("success")
                     // Save the status after successfully register
                     UserDefaults.standard.set(true, forKey: "status")
                     NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
                 }
             } else {
-                // ERROR HANDLING if the password mismatch
+                // Error Handling if the password mismatch
                 self.error = "Password mismatch"
                 self.alert.toggle()
             }
         } else {
-            // ERROR HANDLING
+            // Error Handling
             self.error = "Please fill all the credentials properly"
             self.alert.toggle()
         }
     }
 }
 
-// MARK: SIGN UP PREVIEW
+// MARK: - Previews
 #Preview {
     SignUpView()
 }

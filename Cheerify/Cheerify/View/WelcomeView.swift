@@ -6,20 +6,22 @@
 //
 import SwiftUI
 
-// MARK: WELCOME VIEW
+// MARK: - Welcome View Struct
+// Handle three steps before log in or sign up
 struct WelcomeView: View {
     
-    // STATE PRIVATE PROPERTIES of WelcomeView
+    // State Properties of WelcomeView
     @State private var currentIndex = 0
     @State private var navigateToLogin = false
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-    // PROPERTY for totalSteps
+    // Property for totalSteps
     let totalSteps = 3
     @StateObject private var profileVM = ProfileViewModel()
 
-    // BODY VIEW
+    // MARK: - Body
     var body: some View {
         ZStack {
+            // MARK: - Dark mode set up
             // BGM, changing based on dark or light mode
             if profileVM.isDarkMode {
                 AppColors.darkGradientBGM_bottomShadow
@@ -31,7 +33,7 @@ struct WelcomeView: View {
             
             VStack {
                 
-                // Display the page indicator
+                // MARK: - Display the page indicator
                 HStack(spacing: 10) {
                     ForEach(0..<Int(totalSteps), id: \.self) { index in
                         Capsule()
@@ -45,29 +47,35 @@ struct WelcomeView: View {
                 
                 Spacer()
                 
-                // Display image for each step
+                // MARK: - Display image for each step
                 if currentIndex == 0 {
-                    // WILL CHANGE TO LOTTIE
+                    // Step 1
                     LottieView(name: Constants.moodScanAnimation, loopMode: .loop, animationSpeed: 1.0)
                         .frame(width: 400, height: 400)
                 } else if currentIndex == 1 {
+                    // Step 2
                     LottieView(name: Constants.youtubeAnimation, loopMode: .loop, animationSpeed: 2.0)
                         .frame(width: 400, height: 400)
                 } else if currentIndex == 2 {
+                    // Step 3
                     LottieView(name: Constants.embraceMoodAnimation, loopMode: .loop, animationSpeed: 1.0)
                         .frame(width: 400, height: 400)
                 }
                 
                 Spacer()
 
-                // Display text for each step
+                // MARK: - Display text for each step
                 VStack(alignment: .leading) {
+                    // MARK: - Steps
+                    // Step 1 : Step 2 : Step 3
                     Text(currentIndex == 0 ? "Unlock Your Mood in Snap!" : currentIndex == 1 ? "YouTube Video One Click Away!" : "Embrace Your Mood by Widget!")
                         .font(.largeTitle)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .fontWeight(.bold)
                         .padding(.bottom, 10)
                     
+                    // MARK: - Step's Description
+                    // Step 1 : Step 2 : Step 3
                     Text(currentIndex == 0 ? "Your face, your mood, your videos. Cheerify knows what you need, right when you need it!" :
                         currentIndex == 1 ? "Cheerify match your expression with the best YouTube solutions!" :
                         "We keep the vibe alive with the mood widget!")
@@ -77,7 +85,7 @@ struct WelcomeView: View {
                 
                 Spacer()
 
-                // Button to next step
+                // MARK: - Button to next step
                 Button {
                     if currentIndex < totalSteps - 1 {
                         currentIndex += 1
@@ -113,7 +121,7 @@ struct WelcomeView: View {
     }
 }
 
-// MARK: WELCOME PREVIEW
+// MARK: - Previews
 #Preview {
     WelcomeView()
 }

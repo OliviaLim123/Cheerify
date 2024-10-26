@@ -8,10 +8,10 @@
 import SwiftUI
 import FirebaseAuth
 
-// MARK: PROFILE VIEW
+// MARK: - Profile View Struct
 struct ProfileView: View {
     
-    // STATE PRIVATE PROPERTIES
+    // State private properties
     @State private var navigateToLogin: Bool = false
     @State private var email: String? = nil
     @State private var accountCreationDate: String? = nil
@@ -20,14 +20,15 @@ struct ProfileView: View {
     @State private var showSuccess: Bool = false
     @State private var successMessage: String = ""
     
-    // STATE OBJECT for view model
+    // State object of ProfileViewModel
     @StateObject private var profileVM = ProfileViewModel()
     
-    // BODY VIEW
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack {
                 
+                // MARK: - Dark mode set up
                 // BGM, changing based on dark or light mode
                 if profileVM.isDarkMode {
                     AppColors.darkGradientBGM_bottomShadow
@@ -38,6 +39,7 @@ struct ProfileView: View {
                 }
                 
                 VStack {
+                    // MARK: - Title
                     Text("SETTING")
                         .font(.largeTitle)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
@@ -45,6 +47,7 @@ struct ProfileView: View {
                         .multilineTextAlignment(.leading)
                         .padding(.bottom, 20)
                     
+                    // MARK: - Show information if the user has registered
                     if let userEmail = email, let creationDate = accountCreationDate {
                         VStack {
                             ZStack {
@@ -61,20 +64,21 @@ struct ProfileView: View {
                                     .clipShape(Circle())
                             }
                             
-                            // Display the user email
+                            // MARK: - Display user email
                             Text("\(userEmail)")
                                 .font(.title2)
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                             
-                            // Display the account creation date
+                            // MARK: - Display the account creation date
                             Text("Date joined on \(creationDate)")
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .font(.headline)
                                 .padding(.bottom, 20)
                         }
                     } else {
+                        // MARK: - Placeholder
                         // Showing the placeholder when there is no user logged in
                         VStack {
                             ZStack {
@@ -88,13 +92,14 @@ struct ProfileView: View {
                             }
                             .padding(.bottom, 20)
                             
+                            // MARK: - Display sample email
                             Text("ExampleUser.com")
                                 .font(.title2)
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                             
-                            
+                            // MARK: - Display sample creation date
                             Text("Date joined on 23/10/2024")
                                 .font(.headline)
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
@@ -103,7 +108,7 @@ struct ProfileView: View {
                     }
                     
                     VStack(alignment: .leading) {
-                        // Button to reset password
+                        // MARK: - Reset password button
                         Button {
                             resetPassword()
                         } label: {
@@ -132,7 +137,7 @@ struct ProfileView: View {
                     }
                     .padding(.bottom, 10)
                     
-                    // Button to enable the dark and light display modes
+                    // MARK: - Button to enable the dark and light display modes
                     HStack {
                         Toggle(isOn: profileVM.$isDarkMode) {
                             HStack {
@@ -160,7 +165,7 @@ struct ProfileView: View {
                     }
                     Spacer()
                     
-                    // Button to sign out
+                    // MARK: - Button to sign out
                     Button {
                         try! Auth.auth().signOut()
                         // Update the user status after sign out
@@ -178,7 +183,7 @@ struct ProfileView: View {
                     .cornerRadius(20)
                     .padding(.top, 15)
                     
-                    // Button to delete account
+                    // MARK: - Button to delete account
                     Button {
                         deleteAccount()
                     } label: {
@@ -211,7 +216,8 @@ struct ProfileView: View {
         }
     }
     
-    // PRIVATE FUNCTTION to fetch the user email from Firebase Auth
+    // MARK: - Fetch User Email Function
+    // Fetch the user email from Firebase Auth
     private func fetchUserEmail() {
         if let user = Auth.auth().currentUser {
             email = user.email
@@ -224,18 +230,19 @@ struct ProfileView: View {
             if let creationDate = creationDate {
                 accountCreationDate = dateFormatter.string(from: creationDate)
             } else {
-                // ERROR HANDLING if creation date is unavailable
+                // Error Handling if creation date is unavailable
                 accountCreationDate = "Unavailable"
             }
         } else {
-            // ERROR HANDLING if the user is not found
+            // Error Handling if the user is not found
             email = "No user found"
         }
     }
     
-    // PRIVATE FUNCTION to delete account
+    // MARK: - Delete Account Function
+    // Delete account in the Firebase Auth
     private func deleteAccount() {
-        // ERROR HANDLING to check the current logged in user
+        // Error Hanlding to check the current logged in user
         guard let user = Auth.auth().currentUser else {
             errorMessage = "No user found"
             showError = true
@@ -244,7 +251,7 @@ struct ProfileView: View {
         
         user.delete { error in
             if let error = error {
-                // ERROR HANDLING if delete account is failed
+                // Error Handling if delete account is failed
                 errorMessage = "Failed to delete account: \(error.localizedDescription)"
                 showError = true
             } else {
@@ -258,9 +265,10 @@ struct ProfileView: View {
         }
     }
     
-    // PRIVATE FUNCTION to reset password
+    // MARK: - Reset Password Function
+    // Sending the reset password link through the user email
     private func resetPassword() {
-        // ERROR HANDLING if there is no email
+        // Error Handling if there is no email
         guard let email = email else {
             errorMessage = "No email associated with the account"
             showError = true
@@ -269,7 +277,7 @@ struct ProfileView: View {
         
         // Reset password function from Firebase Auth
         Auth.auth().sendPasswordReset(withEmail: email) { error in
-            // ERROR HANDLING if it is failed to reset password
+            // Error Handling if it is failed to reset password
             if let error = error {
                 errorMessage = "Failed to send reset email: \(error.localizedDescription)"
                 showError = true
@@ -281,7 +289,7 @@ struct ProfileView: View {
     }
 }
 
-// MARK: PROFILE PREVIEW
+// MARK: - Previews
 #Preview {
     ProfileView()
 }

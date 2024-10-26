@@ -8,16 +8,17 @@
 import SwiftUI
 import Lottie
 
-// MARK: LOTTIE VIEW
+// MARK: - Lottie View
 struct LottieView: UIViewRepresentable {
     
-    // PROPERTIES of LottieView
+    // Propertoes of LottieView
     let name: String
     let loopMode: LottieLoopMode
     let animationSpeed: CGFloat
     let contentMode: UIView.ContentMode = .scaleAspectFit
     
-    // FUNCTION to construct the underlying 'UIView' with the Lottie animation
+    // MARK: - Make UI View Function
+    // Construct the underlying 'UIView' with the Lottie animation
     func makeUIView(context: Context) -> some UIView {
         // Create the empty 'UIView'
         let view = UIView(frame: .zero)
@@ -48,7 +49,7 @@ struct LottieView: UIViewRepresentable {
         return view
     }
     
-    // FUNCTION to update the view
+    // MARK: - Update UI View Function
     // The animation is static in this case, so it has an empty code
     func updateUIView(_ uiView: UIViewType, context: Context) { }
 }

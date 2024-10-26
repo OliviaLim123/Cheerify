@@ -8,20 +8,23 @@
 import FirebaseAuth
 import SwiftUI
 
-// MARK: PROFILE VIEW MODEL
+// MARK: - Profile View Model
+// Handle the main functionality for the authentication using Firebase
 class ProfileViewModel: ObservableObject {
     
-    // APP STORAGE to store the display mode preference
+    // App Storage to store the display mode preference
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
-    // METHOD to load the current logged user display mode preference
+    // MARK: - Load User Theme Preference
+    // Load the current logged user display mode preference (either light mode or dark mode)
     func loadUserThemePreference() {
         if let userId = Auth.auth().currentUser?.uid {
             isDarkMode = UserDefaults.standard.bool(forKey: "\(userId)_isDarkMode")
         }
     }
     
-    // METHOD to update the color scheme
+    // MARK: - Update Color Scheme Function
+    // Update the color scheme
     func updateColorScheme() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         // Display the window scene if it is dark or light mode
@@ -34,14 +37,17 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    // METHOD to get the first initial from the user email
+    // MARK: - Get Intial Function
+    // Get the first initial from the user email to show as the profile
     func getInitial(from email: String) -> String {
         let firstInitial = email.prefix(1).uppercased()
         return firstInitial
     }
-    // FUNCTION to set the application in light display mode (default)
+    
+    // MARK: - Set App to Light Mode Function
+    // Set the application in light display mode (default)
     func setAppToLightMode() {
-        // ERROR HANDLING
+        // Error Handling
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         
         for window in windowScene.windows {

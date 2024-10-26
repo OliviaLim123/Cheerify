@@ -8,24 +8,24 @@
 
 import SwiftUI
 
-// MARK: ERROR VIEW
+// MARK: - Error View
 struct ErrorView: View {
 
-    // BINDING PROPERTIES of ErrorView
+    // Binding Properties of ErrorView
     @Binding var alert : Bool
     @Binding var error : String
     @StateObject private var profileVM = ProfileViewModel()
     
-    // BODY VIEW
+    // MARK: - Body
     var body: some View {
         ZStack {
-            // Background colour
+            // MARK: - Background colour
             Color.black.opacity(0.35)
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
                 HStack {
-                    // Display the error message header
+                    // MARK: - Display the error message header
                     Text(self.error == "RESET" ? "Message" : "Error")
                         .font(.title)
                         .fontWeight(.bold)
@@ -34,13 +34,13 @@ struct ErrorView: View {
                 }
                 .padding(.horizontal, 25)
                 
-                // Display the error message
+                // MARK: - Display the error message
                 Text(self.error == "RESET" ? "Password reset link has been sent successfully to your email" : self.error)
                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     .padding(.top)
                     .padding(.horizontal, 25)
                 
-                // Button for the alert with OK or Cancel option
+                // MARK: - Button for the alert with OK or Cancel option
                 Button {
                     self.alert.toggle()
                 } label: {
@@ -76,7 +76,6 @@ struct ErrorView: View {
                 .padding(.horizontal, 25)
                 .padding(.bottom, 10)
                 
-                //.cornerRadius(20)
                 .padding(.top, 25)
             }
             .padding(.vertical, 25)
@@ -90,6 +89,7 @@ struct ErrorView: View {
     }
 }
 
+// MARK: - Previews
 #Preview {
     ErrorView(alert: .constant(true), error: .constant("Password is not matched"))
 }

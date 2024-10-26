@@ -7,14 +7,23 @@
 
 import SwiftUI
 
+// MARK: - Mood Tracking View Struct
+// Handle the user's mood history
 struct MoodTrackingView: View {
-    @State private var moods: [MoodRecord] = [] // Store fetched moods
-    @State private var selectedDate = Date()     // Track selected date
+    
+    // Store fetched moods
+    @State private var moods: [MoodRecord] = []
+    // Track selected date
+    @State private var selectedDate = Date()
+    // State Object for track the darkmode
     @StateObject var profileVM = ProfileViewModel()
     private let persistenceController = PersistenceController.shared
-
+    
+    // MARK: - BODY
     var body: some View {
         ZStack {
+            
+            // MARK: - Dark mode set up
             // BGM, changing based on dark or light mode
             if profileVM.isDarkMode {
                 AppColors.darkGradientBGM_bottomShadow
@@ -23,8 +32,9 @@ struct MoodTrackingView: View {
                 AppColors.gradientBGM_bottomShadow
                     .ignoresSafeArea(.all)
             }
+            
             VStack {
-                // Title
+                // MARK: - Title
                 VStack(alignment: .leading) {
                     Text("Your Mood")
                         .font(.largeTitle)
@@ -43,6 +53,8 @@ struct MoodTrackingView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                 
+                // MARK: - Mood History View
+                // Display placeholder when there is no mood history record
                 if moods.isEmpty {
                     VStack {
                         Image(systemName: "list.bullet.clipboard")
@@ -63,54 +75,68 @@ struct MoodTrackingView: View {
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
+                    // Display the all mood records
                     ScrollView {
                         VStack(spacing: 10) {
                             ForEach(moods, id: \.id) { mood in
                                 MoodRow(mood: mood) {
-                                    deleteMood(mood) // Call delete function when delete is confirmed
+                                    // Call delete function when delete is confirmed
+                                    deleteMood(mood)
                                 }
                             }
                         }
-                        .padding() // Add padding around the VStack
+                        // Add padding around the VStack
+                        .padding()
                     }
                 }
             }
             .onAppear {
-                fetchMoodsForSelectedDate() // Fetch initial moods when the view appears
+                fetchAllMoods()
             }
         }
     }
 
-    // Fetch moods for the selected date
-    private func fetchMoodsForSelectedDate() {
-        moods = persistenceController.fetchMood(for: selectedDate).map { [$0] } ?? []
+    // MARK: Fetch All Moods Function
+    // Fetch all moods record from the Core Data
+    private func fetchAllMoods() {
+        moods = persistenceController.fetchMoods()
     }
     
+    // MARK: Delete Mood Function
     // Delete mood from Core Data and update the UI
     private func deleteMood(_ mood: MoodRecord) {
         persistenceController.deleteMood(mood)
-        fetchMoodsForSelectedDate() // Refresh the mood list
+        // Refresh the mood list
+        fetchAllMoods()
     }
 }
 
+// MARK: - Mood Row Struct
 // Row View with Delete Button
 struct MoodRow: View {
+    
+    // Properties of Mood Row
     let mood: MoodRecord
     let onDelete: () -> Void
     @StateObject var profileVM = ProfileViewModel()
 
+    // MARK: - Body
     var body: some View {
         HStack {
+            // MARK: - Display Image
             if let imageName = mood.imageName, !imageName.isEmpty {
                 Image(imageName)
                     .resizable()
                     .frame(width: 80, height: 80)
             } else {
+                // Show the placeholder if there is no imageName
                 Image(systemName: "face.smiling")
                     .resizable()
                     .frame(width: 80, height: 80)
             }
+            
             VStack(alignment: .leading) {
+                // MARK: - Display ImageName
                 Text(mood.imageName ?? "")
                     .font(.headline)
                     .bold()
@@ -119,18 +145,20 @@ struct MoodRow: View {
                     .background(.black)
                     .foregroundColor(.white)
                     .cornerRadius(20)
-
+                // MARK: - Display Mood Note
                 if let note = mood.note {
                     Text(note)
                         .font(.subheadline)
                 }
+                // MARK: - Display Mood Date
                 Text(mood.date?.formatted() ?? "")
                     .font(.footnote)
                     .bold()
                     .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .darkBeige)
             }
             Spacer()
-            // Delete Button
+            
+            // MARK: - Delete Button
             Button(action: onDelete) {
                 Image(systemName: "trash")
                     .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .red)
@@ -144,7 +172,7 @@ struct MoodRow: View {
     }
 }
 
-
+// MARK: - Previews
 #Preview {
     MoodTrackingView()
 }

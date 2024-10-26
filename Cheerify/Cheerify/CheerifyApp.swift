@@ -8,6 +8,8 @@
 import SwiftUI
 import FirebaseCore
 
+// MARK: - App Delegate
+// It is used for connecting the Firebase with this project
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -16,6 +18,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
+// MARK: - CheerifyApp
+// The root of this application will begin with the LaunchScreenView
 @main
 struct CheerifyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
