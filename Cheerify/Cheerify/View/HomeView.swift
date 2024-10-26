@@ -7,6 +7,7 @@ struct HomeView: View {
     @State private var showResultView = false    // To navigate to ResultView
     @State private var selectedDate = Date()     // Calendar date selection
     @StateObject private var profileVM = ProfileViewModel()
+    @State private var calendarView: UICalendarView?
     
     var body: some View {
         NavigationStack {
@@ -54,16 +55,22 @@ struct HomeView: View {
                         }
                     }
                     .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                    .padding(.bottom, 20)
                     
                     Spacer()
                     
                     // Calendar
-                    CalendarWrapper()
-                        .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
-                        .cornerRadius(10)
-                        .frame(maxWidth: UIScreen.main.bounds.width - 50)
-                        .frame(height: 300)
-                    
+                    CalendarWrapper(selectedDate: $selectedDate,isDarkMode: $profileVM.isDarkMode  // Pass dark mode state
+                    ) { calendar in
+                        self.calendarView = calendar  // Capture calendar reference
+                    }
+                    .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
+                    .cornerRadius(10)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 20)
+                    .frame(height: 200)
+                    .padding(.bottom, 20)
+                
                     Spacer()
                     
                     // Mood Status or Captured Image
@@ -97,6 +104,7 @@ struct HomeView: View {
                                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             }
                             .padding(.horizontal, 10)
+                            .padding(.top, 10)
                             
                             HStack {
                                 Image(systemName: "doc.text.magnifyingglass")
@@ -108,11 +116,12 @@ struct HomeView: View {
                                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             }
                             .padding()
-                            .frame(width: UIScreen.main.bounds.width - 20)
+                            .frame(maxWidth: .infinity)
                             .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                             .cornerRadius(12)
                         }
-                        .frame(maxWidth: UIScreen.main.bounds.width - 50)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 20)
                         .padding(.bottom, 5)
                     }
                     
@@ -128,7 +137,7 @@ struct HomeView: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 20)
                     
                     Spacer()
                     Spacer()
@@ -142,14 +151,62 @@ struct HomeView: View {
 }
 
 struct CalendarWrapper: UIViewRepresentable {
+    @Binding var selectedDate: Date
+    @Binding var isDarkMode: Bool
+    var onCalendarCreated: ((UICalendarView) -> Void)?
+    
     func makeUIView(context: Context) -> UICalendarView {
         let calendarView = UICalendarView()
-        calendarView.backgroundColor = .clear
+        calendarView.delegate = context.coordinator
+        calendarView.selectionBehavior = UICalendarSelectionSingleDate(delegate: context.coordinator)
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        // Change the circle colour for the selected date
+        calendarView.tintColor = .customOrange
+        onCalendarCreated?(calendarView)
+        
+        // Adjusting the size of the calendar 
+        NSLayoutConstraint.activate([
+            calendarView.heightAnchor.constraint(equalToConstant: 200),
+            calendarView.widthAnchor.constraint(equalToConstant: 300)
+        ])
+        
         return calendarView
     }
     
     func updateUIView(_ uiView: UICalendarView, context: Context) {
-        // Handle any updates if needed
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            updateCalendarTextColor(calendarView: uiView)
+        }
+    }
+    
+    func updateCalendarTextColor(calendarView: UICalendarView) {
+        for subview in calendarView.subviews {
+            for view in subview.subviews {
+                if let label = view as? UILabel {
+                    label.textColor = isDarkMode ? .white : .black
+                }
+            }
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    class Coordinator: NSObject, UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
+        var parent: CalendarWrapper
+        
+        init(_ parent: CalendarWrapper) {
+            self.parent = parent
+        }
+        
+        func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+            if let date = dateComponents?.date {
+                DispatchQueue.main.async {
+                    self.parent.selectedDate = date
+                }
+            }
+        }
+        
     }
 }
 
