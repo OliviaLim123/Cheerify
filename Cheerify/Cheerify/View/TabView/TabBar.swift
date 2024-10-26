@@ -29,8 +29,8 @@ struct TabBar: View {
         TabView(selection: $current) {
             HomeView()
                 .tag("Home")
-            // MoodTrackingView()
-            VideoView()
+             MoodTrackingView()
+//            VideoView()
                 .tag("Tracking")
             ProfileView()
                 .tag("Profile")
