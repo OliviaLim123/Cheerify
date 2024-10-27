@@ -20,6 +20,7 @@ struct ProfileView: View {
     @State private var showSuccess: Bool = false
     @State private var successMessage: String = ""
     @State private var showAlert = false
+    @State private var isNotificationSetUp = false
     
     // State object of ProfileViewModel
     @StateObject private var profileVM = ProfileViewModel()
@@ -169,20 +170,27 @@ struct ProfileView: View {
                     
                     // MARK: - Button to set up the notification
                     Button {
-                        notificationHandler.requestNotificationPermission { success in
-                            if success {
-                                showAlert = true  // Show alert on success
+                        if isNotificationSetUp {
+                            // Cancel notifications
+                            notificationHandler.cancelAllNotifications()
+                            isNotificationSetUp = false
+                        } else {
+                            // Set up notifications
+                            notificationHandler.requestNotificationPermission { success in
+                                if success {
+                                    isNotificationSetUp = true
+                                    showAlert = true
+                                }
                             }
                         }
                     } label:  {
                         HStack {
-                            Image(systemName: "bell")
+                            Image(systemName: isNotificationSetUp ? "bell.slash" : "bell")
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                            Text("Set up notification")
+                            Text(isNotificationSetUp ? "Cancel Notification Setup" : "Set Up Notification")
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .multilineTextAlignment(.leading)
                                 .padding(.vertical)
-                            // Pushing all the elements to the left
                             Spacer()
                         }
                         .padding(.horizontal, 10)

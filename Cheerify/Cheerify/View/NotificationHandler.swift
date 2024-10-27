@@ -104,3 +104,18 @@ struct NotificationHandler {
         )
     }
 }
+// MARK: - Cancel Notifications
+extension NotificationHandler {
+    
+    // Cancel a specific notification by its identifier
+    func cancelNotification(withIdentifier identifier: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        print("Notification canceled: \(identifier)")
+    }
+    
+    // Cancel all pending notifications
+    func cancelAllNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        print("All pending notifications canceled")
+    }
+}
