@@ -8,22 +8,45 @@
 import CoreData
 
 // MARK: - PersistenceController
-// Handles the CoreData operations
+// Handles the CoreData operations for both app and widget, sharing data via an App Group
 class PersistenceController {
     
+    // Singleton instance to use across the app
     static let shared = PersistenceController()
-    let container: NSPersistentContainer
     
-    // MARK: - Initialiser
-    // Initialise the Core Data and load persistence storage "MoodCoreData"
-    init() {
+    // Container to manage the CoreData stack
+    let container: NSPersistentContainer
+
+    // MARK: - Initializer
+    // Initializes the Core Data stack and loads the persistent store
+    init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "MoodCoreData")
+        
+        // Check if we are using an App Group path
+        if !inMemory, let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.au.edu.utss.Cheerify") {
+            // Set the Core Data store location to the shared App Group container
+            let storeURL = appGroupURL.appendingPathComponent("MoodCoreData.sqlite")
+            let description = NSPersistentStoreDescription(url: storeURL)
+            container.persistentStoreDescriptions = [description]
+        } else if inMemory {
+            // Use an in-memory store if testing or for widget previews
+            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        }
+        
+        // Load the persistent store
         container.loadPersistentStores { _, error in
-            if let error = error {
-                fatalError("Unresolved error \(error)")
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
     }
+
+    // MARK: - Widget-Specific Preview Context
+    // Provides a read-only context for the widget to access CoreData in preview mode
+    static var preview: NSManagedObjectContext = {
+        let controller = PersistenceController(inMemory: true)
+        return controller.container.viewContext
+    }()
     
     // MARK: - Save Mood Function
     // Saves a mood record with mood description, note, image name, and date to CoreData

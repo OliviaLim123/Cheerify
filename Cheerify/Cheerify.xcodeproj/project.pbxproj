@@ -7,16 +7,62 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4933F6732CCE451000CD509F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4933F6722CCE451000CD509F /* WidgetKit.framework */; };
+		4933F6752CCE451000CD509F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4933F6742CCE451000CD509F /* SwiftUI.framework */; };
+		4933F6822CCE451100CD509F /* MoodDisplayWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4933F6702CCE451000CD509F /* MoodDisplayWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB61DA882CC51D3F004B5FF2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CB61DA872CC51D3F004B5FF2 /* FirebaseAuth */; };
 		CB61DA8A2CC51D3F004B5FF2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CB61DA892CC51D3F004B5FF2 /* FirebaseFirestore */; };
 		CBC8B3BF2CCA661100FA56C6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CBC8B3BE2CCA661100FA56C6 /* Lottie */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4933F6802CCE451100CD509F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBA85FFD2CBF5D8700842017 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4933F66F2CCE451000CD509F;
+			remoteInfo = MoodDisplayWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4933F6872CCE451100CD509F /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4933F6822CCE451100CD509F /* MoodDisplayWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4933F6702CCE451000CD509F /* MoodDisplayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MoodDisplayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4933F6722CCE451000CD509F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4933F6742CCE451000CD509F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		4933F6892CCE462300CD509F /* MoodDisplayWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoodDisplayWidgetExtension.entitlements; sourceTree = "<group>"; };
 		CBA860052CBF5D8700842017 /* Cheerify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheerify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4933F6862CCE451100CD509F /* Exceptions for "MoodDisplayWidget" folder in "MoodDisplayWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4933F66F2CCE451000CD509F /* MoodDisplayWidgetExtension */;
+		};
+		4933F68B2CCE464D00CD509F /* Exceptions for "Cheerify" folder in "MoodDisplayWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CoreData/MoodCoreData.xcdatamodeld,
+				CoreData/Persistence.swift,
+			);
+			target = 4933F66F2CCE451000CD509F /* MoodDisplayWidgetExtension */;
+		};
 		495CB5322CCA1DE5005AC7B5 /* Exceptions for "Cheerify" folder in "Cheerify" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -27,10 +73,19 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		4933F6762CCE451000CD509F /* MoodDisplayWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4933F6862CCE451100CD509F /* Exceptions for "MoodDisplayWidget" folder in "MoodDisplayWidgetExtension" target */,
+			);
+			path = MoodDisplayWidget;
+			sourceTree = "<group>";
+		};
 		CBA860072CBF5D8700842017 /* Cheerify */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				495CB5322CCA1DE5005AC7B5 /* Exceptions for "Cheerify" folder in "Cheerify" target */,
+				4933F68B2CCE464D00CD509F /* Exceptions for "Cheerify" folder in "MoodDisplayWidgetExtension" target */,
 			);
 			path = Cheerify;
 			sourceTree = "<group>";
@@ -38,6 +93,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4933F66D2CCE451000CD509F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4933F6752CCE451000CD509F /* SwiftUI.framework in Frameworks */,
+				4933F6732CCE451000CD509F /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CBA860022CBF5D8700842017 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,10 +115,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4933F6712CCE451000CD509F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4933F6722CCE451000CD509F /* WidgetKit.framework */,
+				4933F6742CCE451000CD509F /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CBA85FFC2CBF5D8700842017 = {
 			isa = PBXGroup;
 			children = (
+				4933F6892CCE462300CD509F /* MoodDisplayWidgetExtension.entitlements */,
 				CBA860072CBF5D8700842017 /* Cheerify */,
+				4933F6762CCE451000CD509F /* MoodDisplayWidget */,
+				4933F6712CCE451000CD509F /* Frameworks */,
 				CBA860062CBF5D8700842017 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				CBA860052CBF5D8700842017 /* Cheerify.app */,
+				4933F6702CCE451000CD509F /* MoodDisplayWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +147,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4933F66F2CCE451000CD509F /* MoodDisplayWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4933F6832CCE451100CD509F /* Build configuration list for PBXNativeTarget "MoodDisplayWidgetExtension" */;
+			buildPhases = (
+				4933F66C2CCE451000CD509F /* Sources */,
+				4933F66D2CCE451000CD509F /* Frameworks */,
+				4933F66E2CCE451000CD509F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4933F6762CCE451000CD509F /* MoodDisplayWidget */,
+			);
+			name = MoodDisplayWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = MoodDisplayWidgetExtension;
+			productReference = 4933F6702CCE451000CD509F /* MoodDisplayWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		CBA860042CBF5D8700842017 /* Cheerify */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CBA860132CBF5D8800842017 /* Build configuration list for PBXNativeTarget "Cheerify" */;
@@ -77,10 +176,12 @@
 				CBA860012CBF5D8700842017 /* Sources */,
 				CBA860022CBF5D8700842017 /* Frameworks */,
 				CBA860032CBF5D8700842017 /* Resources */,
+				4933F6872CCE451100CD509F /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4933F6812CCE451100CD509F /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				CBA860072CBF5D8700842017 /* Cheerify */,
@@ -105,6 +206,9 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					4933F66F2CCE451000CD509F = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					CBA860042CBF5D8700842017 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -129,11 +233,19 @@
 			projectRoot = "";
 			targets = (
 				CBA860042CBF5D8700842017 /* Cheerify */,
+				4933F66F2CCE451000CD509F /* MoodDisplayWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4933F66E2CCE451000CD509F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CBA860032CBF5D8700842017 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,6 +256,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4933F66C2CCE451000CD509F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CBA860012CBF5D8700842017 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,7 +272,71 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4933F6812CCE451100CD509F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4933F66F2CCE451000CD509F /* MoodDisplayWidgetExtension */;
+			targetProxy = 4933F6802CCE451100CD509F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		4933F6842CCE451100CD509F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MoodDisplayWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MoodDisplayWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MoodDisplayWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify.MoodDisplayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4933F6852CCE451100CD509F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MoodDisplayWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MoodDisplayWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MoodDisplayWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify.MoodDisplayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		CBA860112CBF5D8800842017 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -278,10 +461,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Cheerify/Cheerify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheerify/Preview Content\"";
-				DEVELOPMENT_TEAM = 4QK9XA2VUF;
+				DEVELOPMENT_TEAM = JU6K3J62Y7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheerify/Info.plist;
@@ -297,7 +481,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.uts.Cheerify;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -310,10 +494,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Cheerify/Cheerify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheerify/Preview Content\"";
-				DEVELOPMENT_TEAM = 4QK9XA2VUF;
+				DEVELOPMENT_TEAM = JU6K3J62Y7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheerify/Info.plist;
@@ -329,7 +514,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.uts.Cheerify;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -340,6 +525,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4933F6832CCE451100CD509F /* Build configuration list for PBXNativeTarget "MoodDisplayWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4933F6842CCE451100CD509F /* Debug */,
+				4933F6852CCE451100CD509F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CBA860002CBF5D8700842017 /* Build configuration list for PBXProject "Cheerify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
