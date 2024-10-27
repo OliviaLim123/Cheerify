@@ -19,9 +19,12 @@ struct ProfileView: View {
     @State private var errorMessage: String = ""
     @State private var showSuccess: Bool = false
     @State private var successMessage: String = ""
+    @State private var showAlert = false
     
     // State object of ProfileViewModel
     @StateObject private var profileVM = ProfileViewModel()
+    // Handle the notification
+    let notificationHandler = NotificationHandler()
     
     // MARK: - Body
     var body: some View {
@@ -75,7 +78,7 @@ struct ProfileView: View {
                             Text("Date joined on \(creationDate)")
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .font(.headline)
-                                .padding(.bottom, 20)
+                                .padding(.bottom, 5)
                         }
                     } else {
                         // MARK: - Placeholder
@@ -90,7 +93,7 @@ struct ProfileView: View {
                                     .resizable()
                                     .frame(width: 130, height: 130)
                             }
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 5)
                             
                             // MARK: - Display sample email
                             Text("ExampleUser.com")
@@ -103,7 +106,7 @@ struct ProfileView: View {
                             Text("Date joined on 23/10/2024")
                                 .font(.headline)
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                                .padding(.bottom, 20)
+                                .padding(.bottom, 5)
                         }
                     }
                     
@@ -129,7 +132,7 @@ struct ProfileView: View {
                         }
                         .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                         .cornerRadius(10)
-                        .padding(.top, 15)
+                        .padding(.top, 10)
                         // Displaying the alert to display the password reset link has been sent message
                         .alert(isPresented: $showSuccess) {
                             Alert(title: Text("Success"), message: Text(successMessage), dismissButton: .default(Text("OK")))
@@ -163,7 +166,39 @@ struct ProfileView: View {
                     .onChange(of: profileVM.isDarkMode) { newValue, _ in
                         profileVM.updateColorScheme()
                     }
-                    Spacer()
+                    
+                    // MARK: - Button to set up the notification
+                    Button {
+                        notificationHandler.requestNotificationPermission { success in
+                            if success {
+                                showAlert = true  // Show alert on success
+                            }
+                        }
+                    } label:  {
+                        HStack {
+                            Image(systemName: "bell")
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                            Text("Set up notification")
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                                .multilineTextAlignment(.leading)
+                                .padding(.vertical)
+                            // Pushing all the elements to the left
+                            Spacer()
+                        }
+                        .padding(.horizontal, 10)
+                        .frame(width: UIScreen.main.bounds.width - 50)
+                    }
+                    .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
+                    .cornerRadius(10)
+                    .padding(.top, 10)
+                    .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Success"),
+                            message: Text("You have successfully set up the notification in the application."),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
+                    .padding(.bottom, 10)
                     
                     // MARK: - Button to sign out
                     Button {
@@ -181,7 +216,7 @@ struct ProfileView: View {
                     }
                     .background(.button)
                     .cornerRadius(20)
-                    .padding(.top, 15)
+                    .padding(.top, 10)
                     
                     // MARK: - Button to delete account
                     Button {
