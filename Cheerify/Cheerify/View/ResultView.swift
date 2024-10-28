@@ -33,7 +33,7 @@ struct ResultView: View {
                         )
                         .cornerRadius(15)
                         .padding(.horizontal)
-                        .offset(y: 8)
+                        .padding(.top, 20)
                     
                     //  Shadowing
                         .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
@@ -57,7 +57,7 @@ struct ResultView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(profileVM.isDarkMode ? .white : .brown)
                         .lineSpacing(10)
-                        .tracking(2.5)
+                        .tracking(2.0)
                         .padding(.horizontal, 30)
 //                        .background(RoundedRectangle(cornerRadius: 15)
 //                            .fill(Color.white.opacity(0.15))
@@ -66,7 +66,7 @@ struct ResultView: View {
                     // MARK: - Classification Details with Background
                     Text(viewModel.resultText)
                         .font(.headline)
-                        .foregroundColor(profileVM.isDarkMode ? .white : .black)
+                        .foregroundColor(profileVM.isDarkMode ? .white : .black.opacity(0.6))
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray.opacity(0.2)))
