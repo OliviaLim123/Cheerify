@@ -37,12 +37,12 @@ struct MoodTrackingView: View {
                 // MARK: - Title
                 VStack(alignment: .leading) {
                     Text("Your Mood")
-                        .font(.largeTitle)
+                        .font(.custom("FiraMono-Medium", size: 40))
                         .fontWeight(.bold)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     HStack {
                         Text("History")
-                            .font(.largeTitle)
+                            .font(.custom("FiraMono-Medium", size: 30))
                             .fontWeight(.bold)
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             .opacity(0.5)
@@ -63,12 +63,13 @@ struct MoodTrackingView: View {
                             .padding(.bottom, 10)
                         
                         Text("Sorry, no history found!")
-                            .font(.title)
+                            .font(.custom("FiraMono-Medium", size: 25))
+                            .multilineTextAlignment(.center)
                             .fontWeight(.semibold)
                             .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .black)
                         
                         Text("Please track your first mood to see it here!")
-                            .font(.headline)
+                            .font(.title3)
                             .foregroundStyle(profileVM.isDarkMode ? .lightBeige.opacity(0.5) : .black.opacity(0.5))
                             .padding(.top, 5)
                     }

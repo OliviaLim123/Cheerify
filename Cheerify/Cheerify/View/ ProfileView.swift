@@ -45,7 +45,7 @@ struct ProfileView: View {
                 VStack {
                     // MARK: - Title
                     Text("SETTING")
-                        .font(.largeTitle)
+                        .font(.custom("FiraMono-Medium", size: 40))
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
@@ -224,6 +224,7 @@ struct ProfileView: View {
                     }
                     .background(.button)
                     .cornerRadius(20)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                     .padding(.top, 10)
                     
                     // MARK: - Button to delete account
@@ -237,6 +238,7 @@ struct ProfileView: View {
                     }
                     .background(.cherry)
                     .cornerRadius(20)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                     .padding(.top, 15)
                     // Display the alert before deleting the account permanently
                     .alert(isPresented: $showError) {

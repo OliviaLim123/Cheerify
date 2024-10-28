@@ -33,7 +33,6 @@ struct VideoView: View {
             VStack(spacing: 20) {
                 // Gradient header with bold style
                 Text("YouTube Video Search")
-//                    .font(.title)
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .padding()

@@ -27,7 +27,7 @@ struct ErrorView: View {
                 HStack {
                     // MARK: - Display the error message header
                     Text(self.error == "RESET" ? "Message" : "Error")
-                        .font(.title)
+                        .font(.custom("FiraMono-Medium", size: 30))
                         .fontWeight(.bold)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     Spacer()

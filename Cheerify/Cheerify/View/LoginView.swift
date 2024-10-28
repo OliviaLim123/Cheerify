@@ -40,7 +40,7 @@ struct LoginView: View {
                 // MARK: -Display the application logo
                 HStack {
                     Text("Welcome Cheerier!")
-                        .font(.largeTitle)
+                        .font(.custom("MontserratAlternates-Medium", size: 40))
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
@@ -120,6 +120,7 @@ struct LoginView: View {
                 }
                 .background(.button)
                 .cornerRadius(20)
+                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                 .padding(.top, 25)
                 // This button will navigate to the TabView
                 .navigationDestination(isPresented: $navigateToHome) {

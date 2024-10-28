@@ -40,10 +40,9 @@ struct SignUpView: View {
                 // MARK: - Display application logo
                 HStack {
                     Text("Sign Up !")
-                        .font(.largeTitle)
+                        .font(.custom("MontserratAlternates-Medium", size: 40))
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
-                    
                         .padding(.horizontal)
                     
                     Image("logo")
@@ -131,6 +130,7 @@ struct SignUpView: View {
                 }
                 .background(.button)
                 .cornerRadius(20)
+                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                 .padding(.top, 25)
                 // This button will navigate to the LoginView
                 .navigationDestination(isPresented: $navigateToLogin) {

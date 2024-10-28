@@ -69,7 +69,7 @@ struct WelcomeView: View {
                     // MARK: - Steps
                     // Step 1 : Step 2 : Step 3
                     Text(currentIndex == 0 ? "Unlock Your Mood in Snap!" : currentIndex == 1 ? "YouTube Video One Click Away!" : "Embrace Your Mood by Widget!")
-                        .font(.largeTitle)
+                        .font(.custom("MontserratAlternates-Medium", size: 35))
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .fontWeight(.bold)
                         .padding(.bottom, 10)
@@ -79,6 +79,7 @@ struct WelcomeView: View {
                     Text(currentIndex == 0 ? "Your face, your mood, your videos. Cheerify knows what you need, right when you need it!" :
                         currentIndex == 1 ? "Cheerify match your expression with the best YouTube solutions!" :
                         "We keep the vibe alive with the mood widget!")
+                    .font(.title2)
                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                 }
                 .padding(.horizontal)
@@ -102,6 +103,7 @@ struct WelcomeView: View {
                         .padding()
                         .background(.black)
                         .cornerRadius(20)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                         .padding(.horizontal)
                 }
                 // This button will navigate to the LoginView after reaching the last step
