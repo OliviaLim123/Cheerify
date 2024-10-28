@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import WidgetKit
 
 // MARK: - PersistenceController
 // Handles the CoreData operations for both app and widget, sharing data via an App Group
@@ -61,8 +62,9 @@ class PersistenceController {
         
         do {
             try context.save()
+            // Trigger widget reload to reflect new data
+            WidgetCenter.shared.reloadTimelines(ofKind: "MoodDisplayWidget")
         } catch {
-            // Error handling
             print("Failed to save mood: \(error)")
         }
     }
