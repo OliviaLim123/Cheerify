@@ -34,29 +34,42 @@ struct HomeView: View {
                 
                 VStack(spacing: 20) {
                     // MARK: - Greeting Text
-                    VStack(alignment: .leading) {
-                        Text("Hi There!")
-                            .font(.custom("FiraMono-Medium", size: 40))
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("👋 There!")
+                            .font(.custom("MontserratAlternates-Semibold", size: 40))
                             .fontWeight(.bold)
                             .padding(.top, 10)
-                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                            .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
+                        
                         Text("Welcome back!")
-                            .font(.custom("FiraMono-Medium", size: 30))
+                            .font(.custom("MontserratAlternates-Semibold", size: 30))
                             .fontWeight(.bold)
-                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                            .opacity(0.5)
+                            .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.5))
                     }
+                    .tracking(1.5)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 25)
                     .padding(.top, 50)
                     
                     // MARK: - Mood Track Header
-                    Label("Mood track", systemImage: "calendar")
-                        .font(.title2)
-                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 25)
-                        .padding(.bottom, 0)
+                    HStack {
+                        Image(systemName: "calendar")
+                            .font(.system(size: 30))
+                        
+                        Text("Mood track")
+                            .font(.custom("MontserratAlternates-Semibold", size: 20))
+                    }
+                    .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
+                    .offset(x: -90)
+                    .padding(.bottom, 0)
+                    
+//                    Label("Mood track", systemImage: "calendar")
+//                        .font(.title2)
+//                        .font(.custom("FiraMono-Medium", size: 20))
+//                        .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .padding(.horizontal, 25)
+//                        .padding(.bottom, 0)
                     
                     // MARK: - Display Calendar
                     CalendarWrapper(selectedDate: $selectedDate)
@@ -92,12 +105,15 @@ struct HomeView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 Image(systemName: "deskclock.fill")
-                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                                    .font(.system(size: 28))
                                 
                                 Text(selectedDate, style: .date)
-                                    .font(.headline)
-                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+//                                    .font(.custom("FiraMono-Medium", size: 18))
+                                    .font(.custom("MontserratAlternates-Semibold", size: 19))
+
                             }
+                            .tracking(2.0)
+                            .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
                             .padding(.horizontal, 10)
                             .padding(.bottom, 5)
                             
@@ -135,6 +151,7 @@ struct HomeView: View {
                                         .padding(.horizontal)
                                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                     Text("Oops! We haven’t captured your mood today!")
+                                        .font(.custom("MontserratAlternates-Medium", size: 15))
                                         .multilineTextAlignment(.leading)
                                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 }
@@ -160,8 +177,9 @@ struct HomeView: View {
                         // Show camera to capture photo
                         showImagePicker = true
                     } label: {
-                        Text("Capture Now!")
-                            .bold()
+                        Text("Capture Now !")
+                            .font(.custom("MontserratAlternates-SemiBold", size: 22))
+                            .tracking(1.5)
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(.button)

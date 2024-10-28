@@ -26,7 +26,7 @@ class PersistenceController {
         // Check if we are using an App Group path
         // Leonie's app group: group.au.edu.utss.Cheerify
         // Olivia's app group: group.au.edu.uts.Cheerify
-        if !inMemory, let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.au.edu.uts.Cheerify") {
+        if !inMemory, let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.au.edu.utss.Cheerify") {
             // Set the Core Data store location to the shared App Group container
             let storeURL = appGroupURL.appendingPathComponent("MoodCoreData.sqlite")
             let description = NSPersistentStoreDescription(url: storeURL)
