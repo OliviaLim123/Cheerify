@@ -147,6 +147,8 @@ class PersistenceController {
             // Save changes to apply the deletion
             try context.save()
             print("Mood deleted successfully.")
+            // Trigger widget reload to reflect new data
+            WidgetCenter.shared.reloadTimelines(ofKind: "MoodDisplayWidget")
         } catch {
             // Error handling
             print("Failed to delete mood: \(error)")
