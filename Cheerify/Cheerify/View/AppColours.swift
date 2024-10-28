@@ -27,6 +27,15 @@ struct AppColors {
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
+    
+    static let fierySunsetGradient = LinearGradient(
+        gradient: Gradient(colors: [
+            Color(red: 245 / 255, green: 58 / 255, blue: 9 / 255), // #f53a09
+            Color(red: 255 / 255, green: 200 / 255, blue: 79 / 255) // #ffc84f
+        ]),
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
 
     // MARK: - Light mode background
     static let gradientBGM_topShadow = LinearGradient(

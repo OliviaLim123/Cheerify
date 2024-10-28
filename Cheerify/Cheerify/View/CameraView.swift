@@ -11,100 +11,112 @@ struct CameraView: View {
     @State private var showResultView = false // this state to navigate to ResultView
     
     // Add a reference to the MoodViewModel
-        var viewModel: MoodViewModel
+    var viewModel: MoodViewModel
     
     var body: some View {
-            ZStack {
-                if cameraModel.isCameraAccessGranted {
-                    CameraPreview(camera: cameraModel)
-                        .edgesIgnoringSafeArea(.all)
-                } else {
-                    Text("Camera access denied or not available.")
-                        .font(.headline)
-                        .foregroundColor(.red)
-                }
+        ZStack {
+            if cameraModel.isCameraAccessGranted {
+                CameraPreview(camera: cameraModel)
+                    .edgesIgnoringSafeArea(.all)
+            } else {
+                Text("Camera access denied or not available.")
+                    .font(.headline)
+                    .foregroundColor(.red)
+            }
+            
+            VStack {
+                Spacer()
                 
-                VStack {
-                    Spacer()
+                if let capturedImage = cameraModel.capturedImage {
+                    // Display the captured image
+                    Image(uiImage: capturedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
+                        .cornerRadius(15)
+                        .padding()
                     
-                    if let capturedImage = cameraModel.capturedImage {
-                        // Display the captured image
-                        Image(uiImage: capturedImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 300, height: 300)
-                            .cornerRadius(15)
+                    // Display the "Classify Mood" button after photo is taken
+                    if isClassifying {
+                        // Show progress text while classifying
+                        Text("Analyzing your mood... Please wait!")
+                            .font(.headline)
+                            .fontDesign(.rounded)
+                            .foregroundStyle(AppColors.fierySunsetGradient)
                             .padding()
                         
-                        // Display the "Classify Mood" button after photo is taken
-                        if isClassifying {
-                            // Show progress text while classifying
-                            Text("Analyzing your mood... Please wait!")
-                                .font(.headline)
-                                .foregroundStyle(.frangipani)
-                                .padding()
-
-                        } else {
-                            Button("Classify Mood") {
-                                // Set image for classification
-                                viewModel.selectedImage = capturedImage
-                                isClassifying = true // Set state to show progress
-
-                                // Start classification
-                                viewModel.classify()
-                                
-                                // Simulate a delay (for classification processing)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                    isClassifying = false // Stop showing progress
-                                    showResultView = true // Navigate to ResultView
-                                }
-                            }
-                            .font(.headline)
-                            .padding()
-                            .background(AppColors.gradientBGM_bottomShadow)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                        }
                     } else {
-                        // Show camera buttons when no image is captured
-                        HStack {
-                            Spacer()
+                        Button("Classify Mood") {
+                            // Set image for classification
+                            viewModel.selectedImage = capturedImage
+                            isClassifying = true // Set state to show progress
                             
-                            Button(action: {
-                                cameraModel.capturePhoto()
-                            }) {
-                                Image("cameraButton")
-                                    .resizable()
-                                    .frame(width: 110, height: 110)
-                                    .shadow(radius: 10)
+                            // Start classification
+                            viewModel.classify()
+                            
+                            // Simulate a delay (for classification processing)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                isClassifying = false // Stop showing progress
+                                showResultView = true // Navigate to ResultView
                             }
-                            .padding(.trailing, -90)
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                cameraModel.flipCamera()
-                            }) {
-                                Image(systemName: "arrow.triangle.2.circlepath.camera")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 10)
-                            }
-                            .padding(.trailing, 30)
                         }
-                        .padding(.bottom, 40)
+                        .font(.headline)
+                        .fontDesign(.rounded)
+                        .padding()
+                        .background(Color.black.opacity(0.5))
+//                        .foregroundColor(.white.opacity(0.7))
+                        .foregroundStyle(AppColors.fierySunsetGradient)
+                        .cornerRadius(10)
+                        
+                        //  Wrapped line around button
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(AppColors.fierySunsetGradient, lineWidth: 3)
+                        )
+                        
+                        //  Shadowing
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                     }
+                } else {
+                    // Show camera buttons when no image is captured
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            cameraModel.capturePhoto()
+                        }) {
+                            Image("cameraButton")
+                                .resizable()
+                                .frame(width: 110, height: 110)
+                                .shadow(radius: 10)
+                        }
+                        .padding(.trailing, -90)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            cameraModel.flipCamera()
+                        }) {
+                            Image(systemName: "arrow.triangle.2.circlepath.camera")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white)
+                                .shadow(radius: 10)
+                        }
+                        .padding(.trailing, 30)
+                    }
+                    .padding(.bottom, 40)
                 }
             }
-            .onAppear {
-                cameraModel.checkCameraPermission()
-                cameraModel.parentViewModel = viewModel // Assign MoodViewModel to CameraModel
-            }
-            // Navigation to ResultView when mood is classified
-            .sheet(isPresented: $showResultView) {
-                ResultView(viewModel: viewModel)
-            }
         }
+        .onAppear {
+            cameraModel.checkCameraPermission()
+            cameraModel.parentViewModel = viewModel // Assign MoodViewModel to CameraModel
+        }
+        // Navigation to ResultView when mood is classified
+        .sheet(isPresented: $showResultView) {
+            ResultView(viewModel: viewModel)
+        }
+    }
 }
 
 class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
@@ -117,7 +129,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     
     // Add a reference to MoodViewModel
     var parentViewModel: MoodViewModel?
-        
+    
     
     func checkCameraPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
