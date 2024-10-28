@@ -36,26 +36,24 @@ struct HomeView: View {
                     // MARK: - Greeting Text
                     VStack(alignment: .leading) {
                         Text("Hi There!")
-                            .font(.largeTitle)
+                            .font(.custom("FiraMono-Medium", size: 40))
                             .fontWeight(.bold)
                             .padding(.top, 10)
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         Text("Welcome back!")
-                            .font(.largeTitle)
+                            .font(.custom("FiraMono-Medium", size: 30))
                             .fontWeight(.bold)
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             .opacity(0.5)
                     }
                     .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                    .padding(.bottom, 10)
                     
                     // MARK: - Mood Track Header
                     Label("Mood track", systemImage: "calendar")
                         .font(.title2)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-                        .padding(.bottom, 20)
-                    
-                    Spacer()
                     
                     // MARK: - Display Calendar
                     CalendarWrapper(selectedDate: $selectedDate)
@@ -63,10 +61,9 @@ struct HomeView: View {
                         .cornerRadius(10)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 20)
-                        .frame(height: 200)
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 10)
+                        .frame(height: 370)
                 
-                    Spacer()
                     
                     // MARK: - Mood Status or Captured Image
                     if let image = image {
@@ -100,7 +97,7 @@ struct HomeView: View {
                                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             }
                             .padding(.horizontal, 10)
-                            .padding(.top, 10)
+                            .padding(.bottom, 10)
                             
                             if let record = moodRecordForSelectedDate {
                                 HStack {
@@ -170,6 +167,9 @@ struct HomeView: View {
                             .cornerRadius(20)
                     }
                     .padding(.horizontal, 20)
+                    .padding(.top, 10)
+                    .shadow(color: .gray, radius: 5, x: 2, y: 2)
+                    
                     
                     Spacer()
                     Spacer()
@@ -210,7 +210,7 @@ struct CalendarWrapper: UIViewRepresentable {
         
         // Adjusting the size of the calendar 
         NSLayoutConstraint.activate([
-            calendarView.heightAnchor.constraint(equalToConstant: 200),
+            calendarView.heightAnchor.constraint(equalToConstant: 400),
             calendarView.widthAnchor.constraint(equalToConstant: 300)
         ])
         
