@@ -46,14 +46,17 @@ struct HomeView: View {
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             .opacity(0.5)
                     }
-                    .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-                    .padding(.bottom, 10)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 25)
+                    .padding(.top, 50)
                     
                     // MARK: - Mood Track Header
                     Label("Mood track", systemImage: "calendar")
                         .font(.title2)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                        .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 25)
+                        .padding(.bottom, 0)
                     
                     // MARK: - Display Calendar
                     CalendarWrapper(selectedDate: $selectedDate)
@@ -61,8 +64,7 @@ struct HomeView: View {
                         .cornerRadius(10)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 20)
-                        .padding(.bottom, 10)
-                        .frame(height: 370)
+                        .frame(height: 340)
                 
                     
                     // MARK: - Mood Status or Captured Image
@@ -97,13 +99,13 @@ struct HomeView: View {
                                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             }
                             .padding(.horizontal, 10)
-                            .padding(.bottom, 10)
+                            .padding(.bottom, 5)
                             
                             if let record = moodRecordForSelectedDate {
                                 HStack {
                                     Image(record.imageName ?? "")
                                         .resizable()
-                                        .frame(width: 80, height: 80)
+                                        .frame(width: 70, height: 70)
                                     
                                     VStack {
                                         Text(record.imageName ?? "")
@@ -121,7 +123,7 @@ struct HomeView: View {
                                     }
                                         
                                 }
-                                .padding()
+                                .padding(3)
                                 .frame(maxWidth: .infinity)
                                 .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                                 .cornerRadius(12)
@@ -167,10 +169,10 @@ struct HomeView: View {
                             .cornerRadius(20)
                     }
                     .padding(.horizontal, 20)
-                    .padding(.top, 10)
                     .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                     
-                    
+                    Spacer()
+                    Spacer()
                     Spacer()
                     Spacer()
                 }
@@ -210,7 +212,7 @@ struct CalendarWrapper: UIViewRepresentable {
         
         // Adjusting the size of the calendar 
         NSLayoutConstraint.activate([
-            calendarView.heightAnchor.constraint(equalToConstant: 400),
+            calendarView.heightAnchor.constraint(equalToConstant: 340),
             calendarView.widthAnchor.constraint(equalToConstant: 300)
         ])
         

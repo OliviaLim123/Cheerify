@@ -206,7 +206,7 @@ struct ProfileView: View {
                             dismissButton: .default(Text("OK"))
                         )
                     }
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 15)
                     
                     // MARK: - Button to sign out
                     Button {
@@ -225,7 +225,6 @@ struct ProfileView: View {
                     .background(.button)
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
-                    .padding(.top, 10)
                     
                     // MARK: - Button to delete account
                     Button {
