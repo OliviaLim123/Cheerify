@@ -49,24 +49,11 @@ struct HomeView: View {
                     .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                     
                     // MARK: - Mood Track Header
-                    HStack {
-                        Label("Mood track", systemImage: "calendar")
-                            .font(.title2)
-                            .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                        Spacer()
-                        NavigationLink {
-                            // Action to navigate to history view (optional)
-                        } label: {
-                            HStack {
-                                Text("View All")
-                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                                Image(systemName: "chevron.right")
-                                    .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                            }
-                        }
-                    }
-                    .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-                    .padding(.bottom, 20)
+                    Label("Mood track", systemImage: "calendar")
+                        .font(.title2)
+                        .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                        .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                        .padding(.bottom, 20)
                     
                     Spacer()
                     

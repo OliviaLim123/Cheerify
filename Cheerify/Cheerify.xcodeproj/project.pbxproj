@@ -60,27 +60,6 @@
 			membershipExceptions = (
 				CoreData/MoodCoreData.xcdatamodeld,
 				CoreData/Persistence.swift,
-				"Fonts/Fira_Mono/FiraMono-Bold.ttf",
-				"Fonts/Fira_Mono/FiraMono-Medium.ttf",
-				"Fonts/Fira_Mono/FiraMono-Regular.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-Black.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-BlackItalic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-BoldItalic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraBold.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraBoldItalic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraLight.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraLightItalic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-Italic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-Light.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-LightItalic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-MediumItalic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-SemiBoldItalic.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-Thin.ttf",
-				"Fonts/Montserrat_Alternates/MontserratAlternates-ThinItalic.ttf",
 			);
 			target = 4933F66F2CCE451000CD509F /* MoodDisplayWidgetExtension */;
 		};
@@ -310,7 +289,7 @@
 				CODE_SIGN_ENTITLEMENTS = MoodDisplayWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				DEVELOPMENT_TEAM = 4QK9XA2VUF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoodDisplayWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MoodDisplayWidget;
@@ -321,7 +300,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify.MoodDisplayWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.uts.Cheerify.MoodDisplayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -338,7 +317,7 @@
 				CODE_SIGN_ENTITLEMENTS = MoodDisplayWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				DEVELOPMENT_TEAM = 4QK9XA2VUF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoodDisplayWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MoodDisplayWidget;
@@ -349,7 +328,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify.MoodDisplayWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.uts.Cheerify.MoodDisplayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -486,7 +465,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheerify/Preview Content\"";
-				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				DEVELOPMENT_TEAM = 4QK9XA2VUF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheerify/Info.plist;
@@ -502,7 +481,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.uts.Cheerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -519,7 +498,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cheerify/Preview Content\"";
-				DEVELOPMENT_TEAM = JU6K3J62Y7;
+				DEVELOPMENT_TEAM = 4QK9XA2VUF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheerify/Info.plist;
@@ -535,7 +514,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = au.edu.utss.Cheerify;
+				PRODUCT_BUNDLE_IDENTIFIER = au.edu.uts.Cheerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
