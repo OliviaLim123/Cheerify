@@ -21,10 +21,21 @@ struct ResultView: View {
             ScrollView {
                 VStack(spacing: 25) {
                     // MARK: - Title displaying user's mood
-                    Text("Your Mood Today!")
-                        .font(.system(size: 32, weight: .heavy, design: .rounded))
-                        .foregroundColor(profileVM.isDarkMode ? .white : .black)
-                        .padding(.top, 40)
+                    Text("Your Mood Today")
+                        //.font(.title)
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .tracking(2)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            AppColors.sunsetGradient
+                        )
+                        .cornerRadius(15)
+                        .padding(.horizontal)
+                        .offset(y: 8)
+                    
+                    //  Shadowing
                         .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                     
                     // MARK: - Mood Image with Animation
@@ -42,13 +53,15 @@ struct ResultView: View {
                     
                     // MARK: - Mood-based note description
                     Text(moodNote())
-                        .font(.title3)
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
                         .multilineTextAlignment(.center)
-                        .foregroundColor(profileVM.isDarkMode ? .white : .black)
+                        .foregroundColor(profileVM.isDarkMode ? .white : .brown)
+                        .lineSpacing(10)
+                        .tracking(2.5)
                         .padding(.horizontal, 30)
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.white.opacity(0.15))
-                            .padding(4))
+//                        .background(RoundedRectangle(cornerRadius: 15)
+//                            .fill(Color.white.opacity(0.15))
+//                            .padding(4))
                     
                     // MARK: - Classification Details with Background
                     Text(viewModel.resultText)

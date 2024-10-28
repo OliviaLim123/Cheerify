@@ -33,20 +33,18 @@ struct VideoView: View {
             VStack(spacing: 20) {
                 // Gradient header with bold style
                 Text("YouTube Video Search")
-                    .font(.title)
-                    .fontWeight(.bold)
+//                    .font(.title)
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.orange, Color.yellow, Color.orange.opacity(0.8)]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
+                        AppColors.sunsetGradient
                     )
                     .cornerRadius(15)
                     .padding(.horizontal)
+                //  Shadowing
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                 
                 // Search bar with custom styling
                 HStack {

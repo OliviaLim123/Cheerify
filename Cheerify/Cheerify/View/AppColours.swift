@@ -20,8 +20,15 @@ struct AppColors {
     static let darkBrown = Color(red: 45 / 255, green: 32 / 255, blue: 17 / 255)
     // 936A38
     static let lightBrown = Color(red: 147 / 255, green: 106 / 255, blue: 56 / 255)
+    
+    // MARK: - Custom Gradient
+        static let sunsetGradient = LinearGradient(
+            gradient: Gradient(colors: [Color.orange, Color.yellow, Color.orange.opacity(0.8)]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
 
-    // MARK: - Light mode backgound
+    // MARK: - Light mode background
     static let gradientBGM_topShadow = LinearGradient(
         gradient: Gradient(colors: [AppColors.lightYellow, AppColors.darkYellow]),
         startPoint: .bottom,
