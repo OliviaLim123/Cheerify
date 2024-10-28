@@ -71,16 +71,17 @@ struct LaunchScreenView: View {
     // Handle the appearance of the application logo
     var appLogo: some View {
         // Display the logo and application name
-        VStack {
+        VStack(spacing: 40) {
             Image("logo")
                 .resizable()
                 .frame(width: 200, height: 200)
                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-            Text("Cheerify")
-                .fontWeight(.bold)
-                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                .font(.largeTitle)
             
+            Text("CHERRIFY")
+                .font(.custom("MontserratAlternates-SemiBold", size: 30))
+                .tracking(3.5)
+                .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
+                .font(.largeTitle)
         }
     }
 }

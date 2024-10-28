@@ -60,6 +60,27 @@
 			membershipExceptions = (
 				CoreData/MoodCoreData.xcdatamodeld,
 				CoreData/Persistence.swift,
+				"Fonts/Fira_Mono/FiraMono-Bold.ttf",
+				"Fonts/Fira_Mono/FiraMono-Medium.ttf",
+				"Fonts/Fira_Mono/FiraMono-Regular.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-Black.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-BlackItalic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-BoldItalic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraBold.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraBoldItalic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraLight.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-ExtraLightItalic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-Italic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-Light.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-LightItalic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-MediumItalic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-SemiBoldItalic.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-Thin.ttf",
+				"Fonts/Montserrat_Alternates/MontserratAlternates-ThinItalic.ttf",
 			);
 			target = 4933F66F2CCE451000CD509F /* MoodDisplayWidgetExtension */;
 		};

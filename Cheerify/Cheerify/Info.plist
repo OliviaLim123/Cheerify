@@ -4,5 +4,20 @@
 <dict>
 	<key>NSCameraReactionEffectGesturesEnabledDefault</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>MontserratAlternates-Bold.ttf</string>
+		<string>MontserratAlternates-Black.ttf
+MontserratAlternates-Black.ttf
+</string>
+		<string>MontserratAlternates-ExtraBold.ttf
+</string>
+		<string>MontserratAlternates-Medium.ttf</string>
+		<string>MontserratAlternates-Regular.ttf</string>
+		<string>MontserratAlternates-SemiBold.ttf</string>
+		<string>FiraMono-Regular.ttf</string>
+		<string>FiraMono-Medium.ttf</string>
+		<string>FiraMono-Bold.ttf</string>
+	</array>
 </dict>
 </plist>

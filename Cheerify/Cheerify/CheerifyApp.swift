@@ -68,7 +68,7 @@ struct CheerifyApp: App {
         WindowGroup {
             NavigationStack {
                 LaunchScreenView()
-                
+//                testFont()
             }
         }
     }
