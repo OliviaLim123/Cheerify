@@ -36,15 +36,15 @@ struct HomeView: View {
                     // MARK: - Greeting Text
                     VStack(alignment: .leading, spacing: 8) {
                         Text("👋 There!")
-                            .font(.custom("MontserratAlternates-Semibold", size: 40))
+                            .font(.custom("MontserratAlternates-Semibold", size: 35))
                             .fontWeight(.bold)
                             .padding(.top, 10)
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
                         
                         Text("Welcome back!")
-                            .font(.custom("MontserratAlternates-Semibold", size: 30))
+                            .font(.custom("MontserratAlternates-Semibold", size: 25))
                             .fontWeight(.bold)
-                            .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.5))
+                            .foregroundStyle(profileVM.isDarkMode ? .white.opacity(0.5) : .black.opacity(0.5))
                     }
                     .tracking(1.5)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,22 +54,22 @@ struct HomeView: View {
                     // MARK: - Mood Track Header
                     HStack {
                         Image(systemName: "calendar")
-                            .font(.system(size: 30))
+                            .font(.system(size: 25))
                         
                         Text("Mood track")
                             .font(.custom("MontserratAlternates-Semibold", size: 20))
                     }
                     .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
-                    .offset(x: -90)
+                    .offset(x: -100)
                     .padding(.bottom, 0)
                     
-//                    Label("Mood track", systemImage: "calendar")
-//                        .font(.title2)
-//                        .font(.custom("FiraMono-Medium", size: 20))
-//                        .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .padding(.horizontal, 25)
-//                        .padding(.bottom, 0)
+                    //                    Label("Mood track", systemImage: "calendar")
+                    //                        .font(.title2)
+                    //                        .font(.custom("FiraMono-Medium", size: 20))
+                    //                        .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
+                    //                        .frame(maxWidth: .infinity, alignment: .leading)
+                    //                        .padding(.horizontal, 25)
+                    //                        .padding(.bottom, 0)
                     
                     // MARK: - Display Calendar
                     CalendarWrapper(selectedDate: $selectedDate)
@@ -78,7 +78,7 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 20)
                         .frame(height: 340)
-                
+                    
                     
                     // MARK: - Mood Status or Captured Image
                     if let image = image {
@@ -105,12 +105,12 @@ struct HomeView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 Image(systemName: "deskclock.fill")
-                                    .font(.system(size: 28))
+                                    .font(.system(size: 25))
                                 
                                 Text(selectedDate, style: .date)
-//                                    .font(.custom("FiraMono-Medium", size: 18))
-                                    .font(.custom("MontserratAlternates-Semibold", size: 19))
-
+                                //  .font(.custom("FiraMono-Medium", size: 18))
+                                    .font(.custom("MontserratAlternates-Semibold", size: 18))
+                                
                             }
                             .tracking(2.0)
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
@@ -121,28 +121,33 @@ struct HomeView: View {
                                 HStack {
                                     Image(record.imageName ?? "")
                                         .resizable()
-                                        .frame(width: 70, height: 70)
+                                        .frame(width: 85, height: 85)
                                     
-                                    VStack {
+                                    VStack(spacing: 18) {
                                         Text(record.imageName ?? "")
+                                            .font(.custom("MontserratAlternates-Semibold", size: 15))
                                             .frame(maxWidth: .infinity)
                                             .bold()
-                                            .padding(2)
+                                            .padding(8)
                                             .background(.black)
                                             .foregroundColor(.white)
-                                            .cornerRadius(20)
+                                            .cornerRadius(10)
+                                    
                                         Text(record.note ?? "")
-                                            .font(.subheadline)
+                                            .font(.custom("MontserratAlternates-Semibold", size: 13))
                                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
-                                            // Allows the text to wrap across multiple lines
-                                            .lineLimit(nil)
+                                            .multilineTextAlignment(.center)
+                                        // Allows the text to wrap across multiple lines
+                                            .lineLimit(10)
                                     }
-                                        
                                 }
-                                .padding(3)
+                                .padding(5)
+                                .padding()
+                                .padding(.horizontal)
                                 .frame(maxWidth: .infinity)
                                 .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
                                 .cornerRadius(12)
+                                
                             } else {
                                 // MARK: - Placeholder
                                 HStack {
@@ -178,7 +183,9 @@ struct HomeView: View {
                         showImagePicker = true
                     } label: {
                         Text("Capture Now !")
-                            .font(.custom("MontserratAlternates-SemiBold", size: 22))
+                            .font(.custom("MontserratAlternates-Bold", size: 18))
+                        //  .font(.custom("FiraMono-Bold", size: 18))
+                        
                             .tracking(1.5)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -228,7 +235,10 @@ struct CalendarWrapper: UIViewRepresentable {
         // Change the circle colour for the selected date
         calendarView.tintColor = .customOrange
         
-        // Adjusting the size of the calendar 
+        // Apply the custom font to all labels within the calendar view
+        applyCustomFont(calendarView: calendarView)
+        
+        // Adjusting the size of the calendar
         NSLayoutConstraint.activate([
             calendarView.heightAnchor.constraint(equalToConstant: 340),
             calendarView.widthAnchor.constraint(equalToConstant: 300)
@@ -245,15 +255,31 @@ struct CalendarWrapper: UIViewRepresentable {
         } else {
             normalCalendarTextColor(calendarView: uiView)
         }
+        // Reapply the custom font in case the view needs updating
+        applyCustomFont(calendarView: uiView)
     }
-
+    
+    // MARK: - Apply Custom Font
+    // Apply the custom font to all UILabels within UICalendarView.
+    func applyCustomFont(calendarView: UICalendarView) {
+        // Iterate through subviews to locate UILabels and apply the custom font
+        for subview in calendarView.subviews {
+            for view in subview.subviews {
+                if let label = view as? UILabel {
+                    // Setting the custom font "MontserratAlternates-Semibold"
+                    label.font = UIFont(name: "MontserratAlternates-Semibold", size: 19)
+                }
+            }
+        }
+    }
+    
     // MARK: - Normal Calendar Color
     // Manage how the calendar looks like when light mode
     func normalCalendarTextColor(calendarView: UICalendarView) {
         for subview in calendarView.subviews {
             for view in subview.subviews {
                 if let label = view as? UILabel {
-                    label.textColor =  .black
+                    label.textColor =  .brown
                 }
             }
         }

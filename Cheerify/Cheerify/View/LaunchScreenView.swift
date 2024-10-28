@@ -77,9 +77,9 @@ struct LaunchScreenView: View {
                 .frame(width: 200, height: 200)
                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
             
-            Text("CHERRIFY")
+            Text("CHEERIFY")
                 .font(.custom("MontserratAlternates-SemiBold", size: 30))
-                .tracking(3.5)
+                .tracking(4.0)
                 .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
                 .font(.largeTitle)
         }
