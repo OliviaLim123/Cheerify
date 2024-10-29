@@ -145,78 +145,78 @@ struct ResultView: View {
     
     //  MARK: Uncomment this one to see the Preview - LEONIE
     // Function to get mood-based topics for YouTube recommendations
-    private func videoTopicsForMood() -> [String] {
-        switch viewModel.predictedMood {
-        case "happy":
-            return ["happy vibe playlist", "productive daily vlogs", "funny animal videos", "motivational talks", "relaxing jazz music"]
-        case "fear":
-            return ["calm mind meditation", "overcoming fears", "stress relief exercises", "mindfulness practice", "relaxing nature sounds"]
-        case "angry":
-            return ["anger management tips", "relaxing yoga", "breathing exercises", "calm down techniques", "motivational talks"]
-        case "neutral":
-            return ["relaxing music", "calm nature sounds", "soothing piano music", "ambient background", "neutral mood playlist"]
-        case "sad":
-            return ["uplifting music", "inspiring talks", "funny animal videos", "relaxing jazz", "happy moments compilation"]
-        default:
-            return ["happy vibe playlist", "motivational talks", "funny animal videos", "relaxing music", "positive energy playlist"]
-        }
-    }
+//    private func videoTopicsForMood() -> [String] {
+//        switch viewModel.predictedMood {
+//        case "happy":
+//            return ["happy vibe playlist", "productive daily vlogs", "funny animal videos", "motivational talks", "relaxing jazz music"]
+//        case "fear":
+//            return ["calm mind meditation", "overcoming fears", "stress relief exercises", "mindfulness practice", "relaxing nature sounds"]
+//        case "angry":
+//            return ["anger management tips", "relaxing yoga", "breathing exercises", "calm down techniques", "motivational talks"]
+//        case "neutral":
+//            return ["relaxing music", "calm nature sounds", "soothing piano music", "ambient background", "neutral mood playlist"]
+//        case "sad":
+//            return ["uplifting music", "inspiring talks", "funny animal videos", "relaxing jazz", "happy moments compilation"]
+//        default:
+//            return ["happy vibe playlist", "motivational talks", "funny animal videos", "relaxing music", "positive energy playlist"]
+//        }
+//    }
     
     // MARK: COMMENT this one AND CHANGE IT TO THE CODE ABOVE TO SEE THE PREVIEW - LEONIE
     // MARK: - Video Topics for Mood
-    // Function to get mood-based topics for YouTube recommendations
-    //    private func videoTopicsForMood() -> [String] {
-    // MARK: - Mood-based Video Topics Dictionary
+    //  Function to get mood-based topics for YouTube recommendations
+        private func videoTopicsForMood() -> [String] {
+    //  MARK: - Mood-based Video Topics Dictionary
     // Dictionary of recommended video topics tailored to each mood
-    //        let moodTopics: [String: [String]] = [
-    //            "happy": [
-    //                "happy vibe playlist", "productive daily vlogs", "funny animal videos",
-    //                "motivational talks", "relaxing jazz music", "light up mood workout",
-    //                "travel adventure videos", "cute puppies and kittens", "uplifting songs", "comedy sketches"
-    //            ],
-    //            "fear": [
-    //                "calm mind meditation", "overcoming fears", "stress relief exercises",
-    //                "mindfulness practice", "relaxing nature sounds", "guided deep breathing",
-    //                "soothing forest walks", "calm ocean waves", "comforting ASMR", "meditative focus"
-    //            ],
-    //            "angry": [
-    //                "anger management tips", "relaxing yoga", "breathing exercises",
-    //                "calm down techniques", "motivational talks", "peaceful scenery", "guided relaxation",
-    //                "mood lifting speeches", "positive affirmations", "stress reduction techniques"
-    //            ],
-    //            "neutral": [
-    //                "relaxing music", "calm nature sounds", "soothing piano music",
-    //                "ambient background", "neutral mood playlist", "serene ocean waves",
-    //                "minimalist vlogs", "quiet library ambiance", "forest rain sounds", "evening chill beats"
-    //            ],
-    //            "sad": [
-    //                "uplifting music", "inspiring talks", "funny animal videos",
-    //                "relaxing jazz", "happy moments compilation", "hopeful stories",
-    //                "self-care routines", "heartwarming scenes", "positive journaling", "laugh therapy"
-    //            ]
-    //        ]
-    //
-    //        // MARK: - Default Video Topics
-    //        // Fallback video topics in case the mood is not found in the dictionary
-    //        let defaultTopics = [
-    //            "happy vibe playlist", "motivational talks", "funny animal videos",
-    //            "relaxing music", "positive energy playlist", "serene nature scenes",
-    //            "feel good videos", "comforting soundscapes", "morning inspiration", "peaceful views"
-    //        ]
-    //
-    //        // Fetch the list of topics based on the predicted mood or use default topics if mood isn't found
-    //        let topics = moodTopics[viewModel.predictedMood] ?? defaultTopics
-    //
-    //        // MARK: - Randomized Topic Selection
-    //        // Returns a randomized selection of up to 5 topics for variety
-    //        return getRandomTopics(from: topics, count: 5)
-    //    }
-    //
-    //    // MARK: - Random Topics Helper Function
-    //    // Helper function that shuffles the provided topics and returns a specified number of items
-    //    private func getRandomTopics(from topics: [String], count: Int) -> [String] {
-    //        return Array(topics.shuffled().prefix(count))
-    //    }
+            let moodTopics: [String: [String]] = [
+                "happy": [
+                    "happy vibe playlist", "productive daily vlogs", "funny animal videos",
+                    "motivational talks", "relaxing jazz music", "light up mood workout",
+                    "travel adventure videos", "cute puppies and kittens", "uplifting songs", "comedy sketches"
+                ],
+                "fear": [
+                    "calm mind meditation", "overcoming fears", "stress relief exercises",
+                    "mindfulness practice", "relaxing nature sounds", "guided deep breathing",
+                    "soothing forest walks", "calm ocean waves", "comforting ASMR", "meditative focus"
+                ],
+                "angry": [
+                    "anger management tips", "relaxing yoga", "breathing exercises",
+                    "calm down techniques", "motivational talks", "peaceful scenery", "guided relaxation",
+                    "mood lifting speeches", "positive affirmations", "stress reduction techniques"
+                ],
+                "neutral": [
+                    "relaxing music", "calm nature sounds", "soothing piano music",
+                    "ambient background", "neutral mood playlist", "serene ocean waves",
+                    "minimalist vlogs", "quiet library ambiance", "forest rain sounds", "evening chill beats"
+                ],
+                "sad": [
+                    "uplifting music", "inspiring talks", "funny animal videos",
+                    "relaxing jazz", "happy moments compilation", "hopeful stories",
+                    "self-care routines", "heartwarming scenes", "positive journaling", "laugh therapy"
+                ]
+            ]
+    
+            // MARK: - Default Video Topics
+            // Fallback video topics in case the mood is not found in the dictionary
+            let defaultTopics = [
+                "happy vibe playlist", "motivational talks", "funny animal videos",
+                "relaxing music", "positive energy playlist", "serene nature scenes",
+                "feel good videos", "comforting soundscapes", "morning inspiration", "peaceful views"
+            ]
+    
+            // Fetch the list of topics based on the predicted mood or use default topics if mood isn't found
+            let topics = moodTopics[viewModel.predictedMood] ?? defaultTopics
+    
+            // MARK: - Randomized Topic Selection
+            // Returns a randomized selection of up to 5 topics for variety
+            return getRandomTopics(from: topics, count: 5)
+        }
+    
+        // MARK: - Random Topics Helper Function
+        // Helper function that shuffles the provided topics and returns a specified number of items
+        private func getRandomTopics(from topics: [String], count: Int) -> [String] {
+            return Array(topics.shuffled().prefix(count))
+        }
     
     // MARK: - Save Mood Result Function
     // Function to save the current mood data, including mood, note, and image
