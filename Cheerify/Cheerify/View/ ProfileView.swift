@@ -45,7 +45,8 @@ struct ProfileView: View {
                 VStack {
                     // MARK: - Title
                     Text("SETTING")
-                        .font(.custom("FiraMono-Medium", size: 40))
+                        .font(.custom("MontserratAlternates-Semibold", size: 40))
+                        .tracking(2.5)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
@@ -61,7 +62,8 @@ struct ProfileView: View {
                                     .opacity(0.5)
                                 // Display the initial profile picture
                                 Text(profileVM.getInitial(from: userEmail))
-                                    .font(.system(size: 64, weight: .bold))
+                                    .font(.custom("MontserratAlternates-Semibold", size: 64))
+//                                    .font(.system(size: 64, weight: .bold))
                                     .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .customOrange)
                                     .frame(width: 130, height: 130)
                                     .background(profileVM.isDarkMode ? .darkBeige : .lightBeige)
@@ -98,15 +100,17 @@ struct ProfileView: View {
                             
                             // MARK: - Display sample email
                             Text("ExampleUser.com")
-                                .font(.title2)
-                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+//                                .font(.title2)
+                                .font(.custom("MontserratAlternates-Semibold", size: 18))
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.8))
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                             
                             // MARK: - Display sample creation date
                             Text("Date joined on 23/10/2024")
-                                .font(.headline)
-                                .foregroundStyle(profileVM.isDarkMode ? .white : .black)
+                                .font(.custom("MontserratAlternates-Semibold", size: 15))
+//                                .font(.headline)
+                                .foregroundStyle(profileVM.isDarkMode ? .white : .black.opacity(0.7))
                                 .padding(.bottom, 5)
                         }
                     }
@@ -121,6 +125,7 @@ struct ProfileView: View {
                                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 
                                 Text("Reset Password")
+                                    .font(.custom("MontserratAlternates-medium", size: 16))
                                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                     .multilineTextAlignment(.leading)
                                     .padding(.vertical)
@@ -151,6 +156,7 @@ struct ProfileView: View {
                                 
                                 // Display the enable night mode text
                                 Text("Display Mode")
+                                    .font(.custom("MontserratAlternates-medium", size: 16))
                                     .multilineTextAlignment(.leading)
                                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                     .padding(.vertical)
@@ -188,6 +194,7 @@ struct ProfileView: View {
                             Image(systemName: isNotificationSetUp ? "bell.slash" : "bell")
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             Text(isNotificationSetUp ? "Cancel Notification Setup" : "Set Up Notification")
+                                .font(.custom("MontserratAlternates-medium", size: 16))
                                 .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                                 .multilineTextAlignment(.leading)
                                 .padding(.vertical)
@@ -218,6 +225,7 @@ struct ProfileView: View {
                         navigateToLogin = true
                     } label :{
                         Text("Log out")
+                            .font(.custom("MontserratAlternates-Semibold", size: 18))
                             .foregroundStyle(.white)
                             .padding(.vertical)
                             .frame(width: UIScreen.main.bounds.width - 50)
@@ -231,6 +239,7 @@ struct ProfileView: View {
                         deleteAccount()
                     } label: {
                         Text("Delete Account")
+                            .font(.custom("MontserratAlternates-Semibold", size: 18))
                             .foregroundStyle(.white)
                             .padding(.vertical)
                             .frame(width: UIScreen.main.bounds.width - 50)

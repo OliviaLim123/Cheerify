@@ -37,12 +37,12 @@ struct MoodTrackingView: View {
                 // MARK: - Title
                 VStack(alignment: .leading) {
                     Text("Your Mood")
-                        .font(.custom("FiraMono-Medium", size: 40))
+                        .font(.custom("MontserratAlternates-Medium", size: 40))
                         .fontWeight(.bold)
                         .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                     HStack {
                         Text("History")
-                            .font(.custom("FiraMono-Medium", size: 30))
+                            .font(.custom("MontserratAlternates-Medium", size: 30))
                             .fontWeight(.bold)
                             .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                             .opacity(0.5)
@@ -69,7 +69,9 @@ struct MoodTrackingView: View {
                             .foregroundStyle(profileVM.isDarkMode ? .lightBeige : .black)
                         
                         Text("Please track your first mood to see it here!")
-                            .font(.title3)
+                            .font(.custom("FiraMono-Medium", size: 20))
+//                            .font(.title3)
+                            .multilineTextAlignment(.center)
                             .foregroundStyle(profileVM.isDarkMode ? .lightBeige.opacity(0.5) : .black.opacity(0.5))
                             .padding(.top, 5)
                     }
@@ -139,7 +141,8 @@ struct MoodRow: View {
             VStack(alignment: .leading) {
                 // MARK: - Display ImageName
                 Text(mood.imageName ?? "")
-                    .font(.headline)
+                    .font(.custom("MontserratAlternates-Medium", size: 16))
+//                    .font(.headline)
                     .bold()
                     .frame(maxWidth: .infinity)
                     .padding(2)
@@ -149,7 +152,8 @@ struct MoodRow: View {
                 // MARK: - Display Mood Note
                 if let note = mood.note {
                     Text(note)
-                        .font(.subheadline)
+//                        .font(.subheadline)
+                        .font(.custom("MontserratAlternates-Medium", size: 14))
                 }
                 // MARK: - Display Mood Date
                 Text(mood.date?.formatted() ?? "")

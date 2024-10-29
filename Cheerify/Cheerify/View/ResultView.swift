@@ -24,6 +24,7 @@ struct ResultView: View {
                     Text("Your Mood Today")
                         //.font(.title)
                         .font(.system(size: 28, weight: .bold, design: .rounded))
+//                        .font(.custom("MontserratAlternates-Semibold", size: 25))
                         .tracking(2)
                         .foregroundColor(.white)
                         .padding()
@@ -53,7 +54,8 @@ struct ResultView: View {
                     
                     // MARK: - Mood-based note description
                     Text(moodNote())
-                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+//                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .font(.custom("MontserratAlternates-Semibold", size: 20))
                         .multilineTextAlignment(.center)
                         .foregroundColor(profileVM.isDarkMode ? .white : .brown)
                         .lineSpacing(10)
@@ -65,7 +67,7 @@ struct ResultView: View {
                     
                     // MARK: - Classification Details with Background
                     Text(viewModel.resultText)
-                        .font(.headline)
+                        .font(.custom("MontserratAlternates-Semibold", size: 15))
                         .foregroundColor(profileVM.isDarkMode ? .white : .black.opacity(0.6))
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -83,6 +85,7 @@ struct ResultView: View {
                     }) {
                         HStack {
                             Text(isSaved ? "Mood Saved!" : "Save Mood") // Keeps text and button unified
+                                .font(.custom("MontserratAlternates-Semibold", size: 15))
                                 .fontWeight(.semibold)
                                 .padding(.vertical, 12)
                                 .frame(maxWidth: .infinity) // Full-width alignment
