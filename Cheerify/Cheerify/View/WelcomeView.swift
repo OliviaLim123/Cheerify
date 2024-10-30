@@ -79,7 +79,9 @@ struct WelcomeView: View {
                     Text(currentIndex == 0 ? "Your face, your mood, your videos. Cheerify knows what you need, right when you need it!" :
                         currentIndex == 1 ? "Cheerify match your expression with the best YouTube solutions!" :
                         "We keep the vibe alive with the mood widget!")
-                    .font(.title2)
+//                    .font(.title2)
+                    .font(.custom("MontserratAlternates-Medium", size: 20))
+                    .tracking(1.5)
                     .foregroundStyle(profileVM.isDarkMode ? .white : .black)
                 }
                 .padding(.horizontal)
@@ -95,7 +97,9 @@ struct WelcomeView: View {
                     }
                 } label: {
                     Text(currentIndex == totalSteps - 1 ? "Get Started!" : "Continue")
-                        .font(.title2)
+//                        .font(.title2)
+                        .font(.custom("MontserratAlternates-Medium", size: 20))
+                        .tracking(3)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
