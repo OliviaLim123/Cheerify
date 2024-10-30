@@ -15,3 +15,4 @@ https://github.com/user-attachments/assets/d2741087-3034-4026-8776-f76bdd46c2dd
   7. Be reminded when and how you want by triggering notifications
 
 # Github Link 
+https://github.com/OliviaLim123/Cheerify
